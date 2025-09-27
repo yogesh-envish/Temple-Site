@@ -1,0 +1,392 @@
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1>Contact Us</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item active">Contact</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<section class="contact-info py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="section-title">Get in Touch</h2>
+                <p class="lead">We welcome you to visit our temple and experience divine blessings. For any inquiries, please feel free to contact us.</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h4>Visit Us</h4>
+                    <p>Sri Kaliyuga Ranganathar Temple<br>
+                    Karuppasamy kovil Thottam<br>
+                    Nagalur, Tamil Nadu 638502</p>
+                    <a href="https://maps.google.com" target="_blank" class="btn btn-outline-temple btn-sm">
+                        <i class="fas fa-directions"></i> Get Directions
+                    </a>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h4>Call Us</h4>
+                    <p>Temple Office:<br>
+                    <strong>+1 (555) 123-4567</strong><br><br>
+                    Seva Booking:<br>
+                    <strong>+1 (555) 123-4568</strong></p>
+                    <small class="text-muted">Available: 6:00 AM - 9:00 PM</small>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h4>Email Us</h4>
+                    <p>General Inquiries:<br>
+                    <strong>info@balajiTemple.org</strong><br><br>
+                    Seva Bookings:<br>
+                    <strong>seva@balajiTemple.org</strong></p>
+                    <small class="text-muted">We respond within 24 hours</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="temple-timings py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-4">
+                <h2 class="section-title">Temple Timings</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="timings-table">
+                    <div class="timing-row">
+                        <div class="timing-service">
+                            <i class="fas fa-sun"></i>
+                            <span>Suprabhatam</span>
+                        </div>
+                        <div class="timing-hours">5:30 AM - 6:30 AM</div>
+                    </div>
+                    <div class="timing-row">
+                        <div class="timing-service">
+                            <i class="fas fa-pray"></i>
+                            <span>Morning Darshan</span>
+                        </div>
+                        <div class="timing-hours">7:00 AM - 12:00 PM</div>
+                    </div>
+                    <div class="timing-row">
+                        <div class="timing-service">
+                            <i class="fas fa-moon"></i>
+                            <span>Evening Darshan</span>
+                        </div>
+                        <div class="timing-hours">4:00 PM - 8:00 PM</div>
+                    </div>
+                    <div class="timing-row">
+                        <div class="timing-service">
+                            <i class="fas fa-star"></i>
+                            <span>Ekanta Seva</span>
+                        </div>
+                        <div class="timing-hours">8:30 PM - 9:00 PM</div>
+                    </div>
+                </div>
+                
+                <div class="special-timings mt-4">
+                    <h5>Special Timings</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="special-timing-item">
+                                <strong>Fridays:</strong> Extended evening darshan until 9:00 PM
+                            </div>
+                            <div class="special-timing-item">
+                                <strong>Saturdays:</strong> Special abhishekam at 6:00 AM
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="special-timing-item">
+                                <strong>Sundays:</strong> Vishnu Sahasranamam at 10:00 AM
+                            </div>
+                            <div class="special-timing-item">
+                                <strong>Festivals:</strong> Extended hours as per schedule
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="map-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-4">
+                <h2 class="section-title">Find Us</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps?q=Karuppasamy+kovil+Thottam,+Nagalur,+Tamil+Nadu+638502&output=embed" 
+                        width="100%" 
+                        height="400" 
+                        style="border:0; border-radius: 15px;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="contact-form-section py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="contact-form-container">
+                    <div class="form-header text-center mb-4">
+                        <i class="fas fa-envelope form-icon"></i>
+                        <h3>Send us a Message</h3>
+                        <p class="text-muted">We'd love to hear from you</p>
+                    </div>
+                    
+                    <form class="contact-form">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Full Name *</label>
+                                <input type="text" class="form-control" placeholder="Enter your full name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Email Address *</label>
+                                <input type="email" class="form-control" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" placeholder="Enter your phone number">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Subject *</label>
+                                <select class="form-select" required>
+                                    <option value="">Select subject...</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="seva">Seva Booking</option>
+                                    <option value="donation">Donation</option>
+                                    <option value="event">Event Information</option>
+                                    <option value="feedback">Feedback</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Message *</label>
+                            <textarea class="form-control" rows="5" placeholder="Enter your message..." required></textarea>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-temple btn-lg">
+                                <i class="fas fa-paper-plane me-2"></i>Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="quick-links py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-4">
+                <h2 class="section-title">Quick Actions</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-6 mb-3">
+                <a asp-controller="Seva" asp-action="Book" class="quick-link-card">
+                    <i class="fas fa-calendar-plus"></i>
+                    <span>Book Seva</span>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3">
+                <a asp-controller="Donation" asp-action="Index" class="quick-link-card">
+                    <i class="fas fa-heart"></i>
+                    <span>Make Donation</span>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3">
+                <a asp-controller="Events" asp-action="Index" class="quick-link-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>View Events</span>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3">
+                <a href="tel:+15551234567" class="quick-link-card">
+                    <i class="fas fa-phone"></i>
+                    <span>Call Temple</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.contact-card {
+    background: white;
+    padding: 2.5rem 2rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+}
+
+.contact-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--temple-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: white;
+    font-size: 2rem;
+}
+
+.timings-table {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.timing-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #eee;
+}
+
+.timing-row:last-child {
+    border-bottom: none;
+}
+
+.timing-service {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.timing-service i {
+    color: var(--temple-primary);
+    margin-right: 1rem;
+    font-size: 1.2rem;
+}
+
+.timing-hours {
+    color: var(--temple-accent);
+    font-weight: 600;
+}
+
+.special-timings {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.special-timing-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.special-timing-item:last-child {
+    border-bottom: none;
+}
+
+.map-container {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.contact-form-container {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.quick-link-card {
+    display: block;
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--temple-accent);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.quick-link-card:hover {
+    transform: translateY(-5px);
+    color: white;
+    background: var(--temple-gradient);
+    text-decoration: none;
+}
+
+.quick-link-card i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.quick-link-card span {
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+@@media (max-width: 768px) {
+    .timing-row {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .contact-card {
+        margin-bottom: 2rem;
+    }
+}
+</style>

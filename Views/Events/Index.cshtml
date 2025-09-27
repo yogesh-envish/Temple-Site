@@ -1,0 +1,296 @@
+@model IEnumerable<TempleWebsite.Models.Event>
+@{
+    ViewData["Title"] = "Events & Festivals";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1>Events & Festivals</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item active">Events</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<section class="events-intro py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="section-title">Celebrate Divine Festivals</h2>
+                <p class="lead">Join us in celebrating traditional Hindu festivals and special events throughout the year. Experience the joy of devotion and community spirit.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="events-list py-5 bg-light">
+    <div class="container">
+        @if (Model.Any())
+        {
+            <div class="row">
+                @foreach (var eventItem in Model)
+                {
+                    <div class="col-lg-6 mb-4">
+                        <div class="event-card-detailed">
+                            <div class="event-image">
+                                @if (!string.IsNullOrEmpty(eventItem.ImageUrl))
+                                {
+                                    <img src="@eventItem.ImageUrl" alt="@eventItem.Title" class="img-fluid">
+                                }
+                                else
+                                {
+                                    <div class="event-placeholder">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                }
+                            </div>
+                            <div class="event-details">
+                                <div class="event-date-badge">
+                                    <span class="day">@eventItem.EventDate.Day</span>
+                                    <span class="month">@eventItem.EventDate.ToString("MMM")</span>
+                                    <span class="year">@eventItem.EventDate.Year</span>
+                                </div>
+                                <div class="event-content">
+                                    <h4>@eventItem.Title</h4>
+                                    <p class="event-description">@eventItem.Description</p>
+                                    <div class="event-meta">
+                                        @if (!string.IsNullOrEmpty(eventItem.EventTime))
+                                        {
+                                            <span class="event-time">
+                                                <i class="fas fa-clock"></i> @eventItem.EventTime
+                                            </span>
+                                        }
+                                        @if (eventItem.EndDate.HasValue)
+                                        {
+                                            <span class="event-duration">
+                                                <i class="fas fa-calendar"></i> 
+                                                @eventItem.EventDate.ToString("MMM dd") - @eventItem.EndDate.Value.ToString("MMM dd")
+                                            </span>
+                                        }
+                                    </div>
+                                    @if (eventItem.IsFeatured)
+                                    {
+                                        <span class="featured-badge">Featured Event</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-5">
+                <i class="fas fa-calendar-times" style="font-size: 4rem; color: #ccc; margin-bottom: 1rem;"></i>
+                <h4>No Events Scheduled</h4>
+                <p class="text-muted">Please check back later for upcoming events and festivals.</p>
+            </div>
+        }
+    </div>
+</section>
+
+<section class="festival-calendar py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-4">
+                <h2 class="section-title">Annual Festival Calendar</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="festival-timeline">
+                    <div class="festival-item">
+                        <div class="festival-month">Jan</div>
+                        <div class="festival-details">
+                            <h5>Makar Sankranti</h5>
+                            <p>Harvest festival with special prayers and prasadam distribution</p>
+                        </div>
+                    </div>
+                    <div class="festival-item">
+                        <div class="festival-month">Mar</div>
+                        <div class="festival-details">
+                            <h5>Holi & Ugadi</h5>
+                            <p>Festival of colors and Telugu New Year celebrations</p>
+                        </div>
+                    </div>
+                    <div class="festival-item">
+                        <div class="festival-month">Aug</div>
+                        <div class="festival-details">
+                            <h5>Krishna Janmashtami</h5>
+                            <p>Birth celebration of Lord Krishna with midnight prayers</p>
+                        </div>
+                    </div>
+                    <div class="festival-item">
+                        <div class="festival-month">Sep</div>
+                        <div class="festival-details">
+                            <h5>Brahmotsavam</h5>
+                            <p>Grand annual festival with 9 days of celebrations</p>
+                        </div>
+                    </div>
+                    <div class="festival-item">
+                        <div class="festival-month">Oct</div>
+                        <div class="festival-details">
+                            <h5>Diwali</h5>
+                            <p>Festival of lights with special decorations and prayers</p>
+                        </div>
+                    </div>
+                    <div class="festival-item">
+                        <div class="festival-month">Dec</div>
+                        <div class="festival-details">
+                            <h5>Vaikunta Ekadashi</h5>
+                            <p>Sacred day with special darshan and Vaikunta Dwara opening</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.event-card-detailed {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+
+.event-card-detailed:hover {
+    transform: translateY(-5px);
+}
+
+.event-image {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.event-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.event-placeholder {
+    height: 100%;
+    background: var(--temple-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+}
+
+.event-details {
+    padding: 1.5rem;
+    position: relative;
+}
+
+.event-date-badge {
+    position: absolute;
+    top: -30px;
+    right: 15px;
+    background: var(--temple-accent);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 60px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.event-date-badge .day {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.event-date-badge .month {
+    display: block;
+    font-size: 0.8rem;
+}
+
+.event-date-badge .year {
+    display: block;
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+.event-meta {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.event-time, .event-duration {
+    display: inline-block;
+    margin-right: 1rem;
+    color: var(--temple-accent);
+    font-size: 0.9rem;
+}
+
+.featured-badge {
+    background: var(--temple-secondary);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+    display: inline-block;
+}
+
+.festival-timeline {
+    position: relative;
+}
+
+.festival-timeline::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--temple-primary);
+}
+
+.festival-item {
+    display: flex;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.festival-month {
+    background: var(--temple-primary);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.festival-details {
+    flex: 1;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.festival-details h5 {
+    color: var(--temple-accent);
+    margin-bottom: 0.5rem;
+}
+</style>

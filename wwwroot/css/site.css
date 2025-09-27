@@ -1,0 +1,571 @@
+/* Temple Website Styles */
+:root {
+    --temple-primary: #FF6B35;     /* Saffron */
+    --temple-secondary: #D4AF37;   /* Gold */
+    --temple-accent: #8B0000;      /* Maroon */
+    --temple-light: #FFF8DC;       /* Cream */
+    --temple-dark: #2C1810;        /* Dark Brown */
+    --temple-gradient: linear-gradient(135deg, var(--temple-primary), var(--temple-secondary));
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lora', serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+}
+
+/* Navigation Styles */
+.temple-nav {
+    background: var(--temple-gradient);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 1rem 0;
+}
+
+.temple-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: white !important;
+    text-decoration: none;
+}
+
+.temple-logo-img {
+    height: 40px;
+    width: auto;
+    margin-right: 0.5rem;
+    border-radius: 5px;
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+    font-weight: 500;
+    margin: 0 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--temple-secondary) !important;
+    transform: translateY(-2px);
+}
+
+.dropdown-menu {
+    background: white;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.dropdown-item:hover {
+    background: var(--temple-light);
+    color: var(--temple-primary);
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/images/temple-bg.jpg.jpeg');
+    background-size: cover;
+    background-position: center;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.hero-overlay {
+    width: 100%;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.hero-image img {
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Buttons */
+.btn-temple {
+    background: var(--temple-gradient);
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-temple:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+    color: white;
+}
+
+.btn-outline-temple {
+    border: 2px solid var(--temple-primary);
+    color: var(--temple-primary);
+    background: transparent;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-outline-temple:hover {
+    background: var(--temple-primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Section Styles */
+.section-title {
+    color: var(--temple-accent);
+    margin-bottom: 2rem;
+    position: relative;
+    text-align: center;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--temple-gradient);
+    border-radius: 2px;
+}
+
+/* Timing Cards */
+.timings-section {
+    background: var(--temple-light);
+}
+
+.timing-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    border-top: 4px solid var(--temple-primary);
+}
+
+.timing-card:hover {
+    transform: translateY(-5px);
+}
+
+.timing-icon {
+    font-size: 2.5rem;
+    color: var(--temple-primary);
+    margin-bottom: 1rem;
+}
+
+/* Event Cards */
+.event-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+}
+
+.event-date {
+    background: var(--temple-gradient);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border-radius: 10px;
+    min-width: 60px;
+}
+
+.event-date .day {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.event-date .month {
+    display: block;
+    font-size: 0.9rem;
+}
+
+.event-content {
+    padding: 2rem;
+    padding-top: 1rem;
+}
+
+/* Service Cards */
+.service-card {
+    background: white;
+    padding: 2.5rem 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.service-icon {
+    font-size: 3rem;
+    color: var(--temple-primary);
+    margin-bottom: 1.5rem;
+}
+
+/* Seva Cards */
+.seva-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+    border: 2px solid transparent;
+}
+
+.seva-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--temple-primary);
+}
+
+.seva-card.featured {
+    border: 2px solid var(--temple-secondary);
+    position: relative;
+}
+
+.seva-card.featured::before {
+    content: 'POPULAR';
+    position: absolute;
+    top: 10px;
+    right: -25px;
+    background: var(--temple-secondary);
+    color: white;
+    padding: 5px 30px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    transform: rotate(45deg);
+    z-index: 1;
+}
+
+.seva-header {
+    background: var(--temple-gradient);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+}
+
+.seva-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.seva-price {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255,255,255,0.2);
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.seva-content {
+    padding: 1.5rem;
+}
+
+.seva-benefits {
+    list-style: none;
+    margin: 1rem 0;
+}
+
+.seva-benefits li {
+    padding: 0.25rem 0;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.seva-benefits li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--temple-primary);
+    font-weight: bold;
+}
+
+.seva-timing {
+    color: var(--temple-accent);
+    font-weight: 500;
+    margin-top: 1rem;
+}
+
+/* Page Header */
+.page-header {
+    background: var(--temple-gradient);
+    color: white;
+    padding: 3rem 0 2rem;
+}
+
+.page-header h1 {
+    margin-bottom: 1rem;
+}
+
+.breadcrumb {
+    background: transparent;
+    margin: 0;
+}
+
+.breadcrumb-item a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+}
+
+.breadcrumb-item.active {
+    color: white;
+}
+
+/* Forms */
+.booking-form-container {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.form-header {
+    border-bottom: 2px solid var(--temple-light);
+    padding-bottom: 1.5rem;
+}
+
+.form-icon {
+    font-size: 3rem;
+    color: var(--temple-primary);
+    margin-bottom: 1rem;
+}
+
+.form-control, .form-select {
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 12px 15px;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--temple-primary);
+    box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25);
+}
+
+.amount-display {
+    background: var(--temple-light);
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--temple-accent);
+    text-align: center;
+}
+
+.booking-summary {
+    background: var(--temple-light);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid var(--temple-primary);
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.summary-item:last-child {
+    margin-bottom: 0;
+    font-weight: bold;
+    border-top: 1px solid #ddd;
+    padding-top: 0.5rem;
+}
+
+/* Mission Cards */
+.mission-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.mission-card:hover {
+    transform: translateY(-5px);
+}
+
+.mission-icon {
+    font-size: 2.5rem;
+    color: var(--temple-primary);
+    margin-bottom: 1rem;
+}
+
+/* Stats */
+.temple-stats {
+    background: var(--temple-light);
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    color: var(--temple-primary);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: var(--temple-accent);
+    font-weight: 500;
+}
+
+/* Footer */
+.temple-footer {
+    background: var(--temple-dark);
+    color: white;
+    padding: 3rem 0 1rem;
+    margin-top: 3rem;
+}
+
+.temple-footer h5 {
+    color: var(--temple-secondary);
+    margin-bottom: 1rem;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--temple-secondary);
+}
+
+.social-links a {
+    color: white;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--temple-secondary);
+}
+
+.footer-divider {
+    border-color: rgba(255,255,255,0.2);
+    margin: 2rem 0 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .timing-card, .service-card, .seva-card {
+        margin-bottom: 2rem;
+    }
+    
+    .booking-form-container {
+        padding: 1.5rem;
+    }
+}
+
+/* Animations */
+.temple-image {
+    transition: transform 0.3s ease;
+}
+
+.temple-image:hover {
+    transform: scale(1.05);
+}
+
+/* Utility Classes */
+.text-temple {
+    color: var(--temple-primary) !important;
+}
+
+.bg-temple {
+    background: var(--temple-gradient) !important;
+}
+
+.min-vh-75 {
+    min-height: 75vh;
+}
+
+/* Loading Animation */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.loading {
+    animation: pulse 1.5s infinite;
+}

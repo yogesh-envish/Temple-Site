@@ -1,0 +1,149 @@
+@model TempleWebsite.Models.SevaBooking
+@{
+    ViewData["Title"] = "Book Seva";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1>Book Your Seva</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Seva" asp-action="Index">Seva & Pooja</a></li>
+                <li class="breadcrumb-item active">Book Seva</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<section class="booking-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="booking-form-container">
+                    <div class="form-header text-center mb-4">
+                        <i class="fas fa-hands-praying form-icon"></i>
+                        <h3>Seva Booking Form</h3>
+                        <p class="text-muted">Please fill in your details to book a seva</p>
+                    </div>
+                    
+                    <form asp-action="Book" method="post" class="booking-form">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="FullName" class="form-label">Full Name *</label>
+                                <input asp-for="FullName" class="form-control" placeholder="Enter your full name">
+                                <span asp-validation-for="FullName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Email" class="form-label">Email Address *</label>
+                                <input asp-for="Email" class="form-control" placeholder="Enter your email">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Phone" class="form-label">Phone Number *</label>
+                                <input asp-for="Phone" class="form-control" placeholder="Enter your phone number">
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="SevaType" class="form-label">Select Seva *</label>
+                                <select asp-for="SevaType" class="form-select" id="sevaSelect">
+                                    <option value="">Choose a seva...</option>
+                                    <option value="Suprabhatam" data-amount="51">Suprabhatam - ₹51</option>
+                                    <option value="Archana" data-amount="21">Archana - ₹21</option>
+                                    <option value="Abhishekam" data-amount="101">Abhishekam - ₹101</option>
+                                    <option value="Sahasranamam" data-amount="151">Sahasranamam - ₹151</option>
+                                    <option value="Kalyanam" data-amount="501">Kalyanam - ₹501</option>
+                                    <option value="Brahmotsavam" data-amount="1001">Brahmotsavam - ₹1001</option>
+                                </select>
+                                <span asp-validation-for="SevaType" class="text-danger"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="PreferredDate" class="form-label">Preferred Date *</label>
+                                <input asp-for="PreferredDate" type="date" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")">
+                                <span asp-validation-for="PreferredDate" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Seva Amount</label>
+                                <div class="amount-display">
+                                    <span id="sevaAmount">₹0</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="SpecialInstructions" class="form-label">Special Instructions</label>
+                            <textarea asp-for="SpecialInstructions" class="form-control" rows="3" placeholder="Any special requests or instructions..."></textarea>
+                            <span asp-validation-for="SpecialInstructions" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="booking-summary mb-4">
+                            <h5>Booking Summary</h5>
+                            <div class="summary-content">
+                                <div class="summary-item">
+                                    <span>Selected Seva:</span>
+                                    <span id="selectedSeva">-</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span>Amount:</span>
+                                    <span id="summaryAmount">₹0</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span>Date:</span>
+                                    <span id="summaryDate">-</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-temple btn-lg">
+                                <i class="fas fa-calendar-check me-2"></i>Book Seva
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sevaSelect = document.getElementById('sevaSelect');
+            const amountDisplay = document.getElementById('sevaAmount');
+            const selectedSevaSpan = document.getElementById('selectedSeva');
+            const summaryAmountSpan = document.getElementById('summaryAmount');
+            const dateInput = document.querySelector('input[name="PreferredDate"]');
+            const summaryDateSpan = document.getElementById('summaryDate');
+            
+            sevaSelect.addEventListener('change', function() {
+                const selectedOption = this.options[this.selectedIndex];
+                const amount = selectedOption.getAttribute('data-amount') || '0';
+                const sevaName = selectedOption.value || '-';
+                
+                amountDisplay.textContent = '₹' + amount;
+                selectedSevaSpan.textContent = sevaName;
+                summaryAmountSpan.textContent = '₹' + amount;
+            });
+            
+            dateInput.addEventListener('change', function() {
+                const selectedDate = new Date(this.value);
+                const formattedDate = selectedDate.toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                summaryDateSpan.textContent = this.value ? formattedDate : '-';
+            });
+        });
+    </script>
+}

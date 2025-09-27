@@ -1,0 +1,144 @@
+@model IEnumerable<TempleWebsite.Models.Event>
+@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-overlay">
+        <div class="container">
+            <div class="row align-items-center min-vh-75">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Welcome to Sri Kaliyuga Ranganathar Temple</h1>
+                        <p class="hero-subtitle">Experience divine blessings and spiritual peace in the sacred presence of Lord Ranganathar</p>
+                        <div class="hero-buttons">
+                            <a asp-controller="Seva" asp-action="Book" class="btn btn-temple btn-lg me-3">Book Seva</a>
+                            <a asp-controller="Donation" asp-action="Index" class="btn btn-outline-light btn-lg">Donate Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-image">
+                        <img src="~/images/ranganathar-idol.jpg.jpeg" alt="Lord Ranganathar" class="img-fluid temple-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Daily Timings Section -->
+<section class="timings-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-4">
+                <h2 class="section-title">Daily Darshan Timings</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-6 mb-3">
+                <div class="timing-card">
+                    <i class="fas fa-sun timing-icon"></i>
+                    <h5>Suprabhatam</h5>
+                    <p>5:30 AM - 6:30 AM</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3">
+                <div class="timing-card">
+                    <i class="fas fa-pray timing-icon"></i>
+                    <h5>Morning Pooja</h5>
+                    <p>7:00 AM - 12:00 PM</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3">
+                <div class="timing-card">
+                    <i class="fas fa-moon timing-icon"></i>
+                    <h5>Evening Pooja</h5>
+                    <p>4:00 PM - 8:00 PM</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3">
+                <div class="timing-card">
+                    <i class="fas fa-star timing-icon"></i>
+                    <h5>Ekanta Seva</h5>
+                    <p>8:30 PM - 9:00 PM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Events Section -->
+@if (Model.Any())
+{
+    <section class="events-section py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <h2 class="section-title">Upcoming Events</h2>
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var eventItem in Model)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="event-card">
+                            <div class="event-date">
+                                <span class="day">@eventItem.EventDate.Day</span>
+                                <span class="month">@eventItem.EventDate.ToString("MMM")</span>
+                            </div>
+                            <div class="event-content">
+                                <h5>@eventItem.Title</h5>
+                                <p>@eventItem.Description</p>
+                                <small class="text-muted">
+                                    <i class="fas fa-clock"></i> @eventItem.EventTime
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="text-center">
+                <a asp-controller="Events" asp-action="Index" class="btn btn-temple">View All Events</a>
+            </div>
+        </div>
+    </section>
+}
+
+<!-- Services Section -->
+<section class="services-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-4">
+                <h2 class="section-title">Our Services</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="service-card text-center">
+                    <i class="fas fa-hands-praying service-icon"></i>
+                    <h4>Seva & Pooja</h4>
+                    <p>Book various sevas and poojas for spiritual blessings and divine grace.</p>
+                    <a asp-controller="Seva" asp-action="Index" class="btn btn-outline-temple">Learn More</a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="service-card text-center">
+                    <i class="fas fa-calendar-alt service-icon"></i>
+                    <h4>Events & Festivals</h4>
+                    <p>Participate in traditional festivals and spiritual events throughout the year.</p>
+                    <a asp-controller="Events" asp-action="Index" class="btn btn-outline-temple">View Events</a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="service-card text-center">
+                    <i class="fas fa-heart service-icon"></i>
+                    <h4>Donations</h4>
+                    <p>Support temple activities and contribute to the spiritual community.</p>
+                    <a asp-controller="Donation" asp-action="Index" class="btn btn-outline-temple">Donate Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

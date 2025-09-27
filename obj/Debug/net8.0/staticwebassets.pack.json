@@ -1,0 +1,57 @@
+{
+  "Files": [
+    {
+      "Id": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\final_logo.jpg",
+      "PackagePath": "staticwebassets\\images\\final_logo.jpg"
+    },
+    {
+      "Id": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\logo.webp",
+      "PackagePath": "staticwebassets\\images\\logo.webp"
+    },
+    {
+      "Id": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\ranganathar-idol.jpg.jpeg",
+      "PackagePath": "staticwebassets\\images\\ranganathar-idol.jpg.jpeg"
+    },
+    {
+      "Id": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\temple-bg.jpg.jpeg",
+      "PackagePath": "staticwebassets\\images\\temple-bg.jpg.jpeg"
+    },
+    {
+      "Id": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\temple-facade.jpg.jpeg",
+      "PackagePath": "staticwebassets\\images\\temple-facade.jpg.jpeg"
+    },
+    {
+      "Id": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.TempleWebsite.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.TempleWebsite.props",
+      "PackagePath": "build\\TempleWebsite.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.TempleWebsite.props",
+      "PackagePath": "buildMultiTargeting\\TempleWebsite.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.TempleWebsite.props",
+      "PackagePath": "buildTransitive\\TempleWebsite.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

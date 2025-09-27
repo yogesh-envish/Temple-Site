@@ -1,0 +1,182 @@
+@{
+    ViewData["Title"] = "Seva & Pooja";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1>Seva & Pooja Services</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item active">Seva & Pooja</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<section class="seva-intro py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="section-title">Divine Services for Spiritual Blessings</h2>
+                <p class="lead">Participate in sacred rituals and sevas to receive the divine grace of Lord Venkateswara. Each seva is performed with devotion and follows traditional Agama procedures.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="seva-services py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="seva-card">
+                    <div class="seva-header">
+                        <i class="fas fa-sun seva-icon"></i>
+                        <h4>Suprabhatam</h4>
+                        <span class="seva-price">₹51</span>
+                    </div>
+                    <div class="seva-content">
+                        <p>Early morning wake-up service to Lord Venkateswara with melodious chanting of Venkatesa Suprabhatam.</p>
+                        <ul class="seva-benefits">
+                            <li>Removes obstacles</li>
+                            <li>Brings prosperity</li>
+                            <li>Spiritual awakening</li>
+                        </ul>
+                        <p class="seva-timing"><i class="fas fa-clock"></i> 5:30 AM - 6:30 AM</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="seva-card">
+                    <div class="seva-header">
+                        <i class="fas fa-pray seva-icon"></i>
+                        <h4>Archana</h4>
+                        <span class="seva-price">₹21</span>
+                    </div>
+                    <div class="seva-content">
+                        <p>Personal prayer service with chanting of 108 names of Lord Venkateswara for individual devotees.</p>
+                        <ul class="seva-benefits">
+                            <li>Personal blessings</li>
+                            <li>Wish fulfillment</li>
+                            <li>Peace of mind</li>
+                        </ul>
+                        <p class="seva-timing"><i class="fas fa-clock"></i> 7:00 AM - 8:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="seva-card">
+                    <div class="seva-header">
+                        <i class="fas fa-tint seva-icon"></i>
+                        <h4>Abhishekam</h4>
+                        <span class="seva-price">₹101</span>
+                    </div>
+                    <div class="seva-content">
+                        <p>Sacred bathing ceremony of the deity with milk, honey, ghee, and other auspicious substances.</p>
+                        <ul class="seva-benefits">
+                            <li>Purification</li>
+                            <li>Health benefits</li>
+                            <li>Divine protection</li>
+                        </ul>
+                        <p class="seva-timing"><i class="fas fa-clock"></i> 8:00 AM - 10:00 AM</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="seva-card">
+                    <div class="seva-header">
+                        <i class="fas fa-book seva-icon"></i>
+                        <h4>Sahasranamam</h4>
+                        <span class="seva-price">₹151</span>
+                    </div>
+                    <div class="seva-content">
+                        <p>Chanting of Vishnu Sahasranamam (1000 names of Lord Vishnu) for spiritual elevation and blessings.</p>
+                        <ul class="seva-benefits">
+                            <li>Spiritual growth</li>
+                            <li>Mental peace</li>
+                            <li>Karmic purification</li>
+                        </ul>
+                        <p class="seva-timing"><i class="fas fa-clock"></i> 10:00 AM - 11:00 AM</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="seva-card">
+                    <div class="seva-header">
+                        <i class="fas fa-ring seva-icon"></i>
+                        <h4>Kalyanam</h4>
+                        <span class="seva-price">₹501</span>
+                    </div>
+                    <div class="seva-content">
+                        <p>Divine marriage ceremony of Lord Venkateswara with Goddess Padmavati for marital harmony.</p>
+                        <ul class="seva-benefits">
+                            <li>Marital bliss</li>
+                            <li>Family harmony</li>
+                            <li>Relationship healing</li>
+                        </ul>
+                        <p class="seva-timing"><i class="fas fa-clock"></i> 11:00 AM - 12:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="seva-card featured">
+                    <div class="seva-header">
+                        <i class="fas fa-crown seva-icon"></i>
+                        <h4>Brahmotsavam</h4>
+                        <span class="seva-price">₹1001</span>
+                    </div>
+                    <div class="seva-content">
+                        <p>Grand annual festival seva with elaborate rituals, decorations, and special offerings to the deity.</p>
+                        <ul class="seva-benefits">
+                            <li>Complete blessings</li>
+                            <li>Prosperity</li>
+                            <li>Spiritual merit</li>
+                        </ul>
+                        <p class="seva-timing"><i class="fas fa-clock"></i> Special Festival Days</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a asp-controller="Seva" asp-action="Book" class="btn btn-temple btn-lg">Book Your Seva Now</a>
+        </div>
+    </div>
+</section>
+
+<section class="seva-guidelines py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h3 class="text-center mb-4">Seva Guidelines</h3>
+                <div class="guidelines-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-info-circle text-temple"></i> Booking Information</h5>
+                            <ul>
+                                <li>Advance booking recommended</li>
+                                <li>Payment required at time of booking</li>
+                                <li>Confirmation will be sent via email/SMS</li>
+                                <li>Cancellation allowed 24 hours prior</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-clock text-temple"></i> Timing Guidelines</h5>
+                            <ul>
+                                <li>Arrive 15 minutes before seva time</li>
+                                <li>Dress code: Traditional attire preferred</li>
+                                <li>Mobile phones to be kept silent</li>
+                                <li>Photography allowed in designated areas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
