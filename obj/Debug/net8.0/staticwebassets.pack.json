@@ -1,39 +1,43 @@
 {
   "Files": [
     {
-      "Id": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\css\\bootstrap.min.css",
+      "Id": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
     },
     {
-      "Id": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\css\\site.css",
+      "Id": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\final_logo.jpg",
+      "Id": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\QRCode.jpeg",
+      "PackagePath": "staticwebassets\\images\\QRCode.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\final_logo.jpg",
       "PackagePath": "staticwebassets\\images\\final_logo.jpg"
     },
     {
-      "Id": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\logo.webp",
+      "Id": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\logo.webp",
       "PackagePath": "staticwebassets\\images\\logo.webp"
     },
     {
-      "Id": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\ranganathar-idol.jpg.jpeg",
+      "Id": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\ranganathar-idol.jpg.jpeg",
       "PackagePath": "staticwebassets\\images\\ranganathar-idol.jpg.jpeg"
     },
     {
-      "Id": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\temple-bg.jpg.jpeg",
+      "Id": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\temple-bg.jpg.jpeg",
       "PackagePath": "staticwebassets\\images\\temple-bg.jpg.jpeg"
     },
     {
-      "Id": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\temple-facade.jpg.jpeg",
+      "Id": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\temple-facade.jpg.jpeg",
       "PackagePath": "staticwebassets\\images\\temple-facade.jpg.jpeg"
     },
     {
-      "Id": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\js\\bootstrap.bundle.min.js",
+      "Id": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\js\\bootstrap.bundle.min.js",
       "PackagePath": "staticwebassets\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Id": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\js\\site.js",
+      "Id": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\yoges\\Desktop\\Temple_Site\\TempleWebsite.csproj": {}
+    "C:\\Users\\yoges\\Desktop\\Temple_Site\\TempleWebsite.csproj": {}
   },
   "projects": {
-    "c:\\Users\\yoges\\Desktop\\Temple_Site\\TempleWebsite.csproj": {
+    "C:\\Users\\yoges\\Desktop\\Temple_Site\\TempleWebsite.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\yoges\\Desktop\\Temple_Site\\TempleWebsite.csproj",
+        "projectUniqueName": "C:\\Users\\yoges\\Desktop\\Temple_Site\\TempleWebsite.csproj",
         "projectName": "TempleWebsite",
-        "projectPath": "c:\\Users\\yoges\\Desktop\\Temple_Site\\TempleWebsite.csproj",
+        "projectPath": "C:\\Users\\yoges\\Desktop\\Temple_Site\\TempleWebsite.csproj",
         "packagesPath": "C:\\Users\\yoges\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\yoges\\Desktop\\Temple_Site\\obj\\",
+        "outputPath": "C:\\Users\\yoges\\Desktop\\Temple_Site\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\yoges\\AppData\\Roaming\\NuGet\\NuGet.Config"

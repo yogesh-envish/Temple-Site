@@ -13,8 +13,7 @@
                         <h1 class="hero-title">Welcome to Sri Kaliyuga Ranganathar Temple</h1>
                         <p class="hero-subtitle">Experience divine blessings and spiritual peace in the sacred presence of Lord Ranganathar</p>
                         <div class="hero-buttons">
-                            <a asp-controller="Seva" asp-action="Book" class="btn btn-temple btn-lg me-3">Book Seva</a>
-                            <a asp-controller="Donation" asp-action="Index" class="btn btn-outline-light btn-lg">Donate Now</a>
+                            <a asp-controller="Donation" asp-action="Index" class="btn btn-temple btn-lg">Donate Now</a>
                         </div>
                     </div>
                 </div>
@@ -33,36 +32,30 @@
     <div class="container">
         <div class="row">
             <div class="col-12 text-center mb-4">
-                <h2 class="section-title">Daily Darshan Timings</h2>
+                <h2 class="section-title">Temple Timings</h2>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3 col-sm-6 mb-3">
+            <div class="col-md-4 col-sm-6 mb-3">
                 <div class="timing-card">
                     <i class="fas fa-sun timing-icon"></i>
-                    <h5>Suprabhatam</h5>
-                    <p>5:30 AM - 6:30 AM</p>
+                    <h5>Nitya Dharshan</h5>
+                    <p>Morning 7 AM - 9 AM<br><small>(Nithya Pooja)</small></p>
+                    <p>Saturday & Amavashya<br>12 PM - 4 PM<br><small>(with Annadhana)</small></p>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6 mb-3">
+            <div class="col-md-4 col-sm-6 mb-3">
                 <div class="timing-card">
                     <i class="fas fa-pray timing-icon"></i>
-                    <h5>Morning Pooja</h5>
-                    <p>7:00 AM - 12:00 PM</p>
+                    <h5>Special Poojas</h5>
+                    <p>6 PM - 9 PM<br><small>(with Annadhana)</small></p>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6 mb-3">
-                <div class="timing-card">
-                    <i class="fas fa-moon timing-icon"></i>
-                    <h5>Evening Pooja</h5>
-                    <p>4:00 PM - 8:00 PM</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 mb-3">
+            <div class="col-md-4 col-sm-6 mb-3">
                 <div class="timing-card">
                     <i class="fas fa-star timing-icon"></i>
-                    <h5>Ekanta Seva</h5>
-                    <p>8:30 PM - 9:00 PM</p>
+                    <h5>Abhisega Dharshana</h5>
+                    <p>3 days before<br>Saturday & Amavashya</p>
                 </div>
             </div>
         </div>
@@ -115,15 +108,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="service-card text-center">
-                    <i class="fas fa-hands-praying service-icon"></i>
-                    <h4>Seva & Pooja</h4>
-                    <p>Book various sevas and poojas for spiritual blessings and divine grace.</p>
-                    <a asp-controller="Seva" asp-action="Index" class="btn btn-outline-temple">Learn More</a>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
+            <div class="col-md-6 mb-4">
                 <div class="service-card text-center">
                     <i class="fas fa-calendar-alt service-icon"></i>
                     <h4>Events & Festivals</h4>
@@ -131,7 +116,7 @@
                     <a asp-controller="Events" asp-action="Index" class="btn btn-outline-temple">View Events</a>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
+            <div class="col-md-6 mb-4">
                 <div class="service-card text-center">
                     <i class="fas fa-heart service-icon"></i>
                     <h4>Donations</h4>

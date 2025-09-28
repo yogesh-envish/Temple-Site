@@ -25,3 +25,4 @@ c:\Users\yoges\Desktop\Temple_Site\obj\Debug\net8.0\refint\TempleWebsite.dll
 c:\Users\yoges\Desktop\Temple_Site\obj\Debug\net8.0\TempleWebsite.pdb
 c:\Users\yoges\Desktop\Temple_Site\obj\Debug\net8.0\TempleWebsite.genruntimeconfig.cache
 c:\Users\yoges\Desktop\Temple_Site\obj\Debug\net8.0\ref\TempleWebsite.dll
+C:\Users\yoges\Desktop\Temple_Site\obj\Debug\net8.0\TempleWebsite.sourcelink.json

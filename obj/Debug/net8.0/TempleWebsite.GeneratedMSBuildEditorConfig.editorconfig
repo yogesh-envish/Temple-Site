@@ -9,51 +9,51 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TempleWebsite
 build_property.RootNamespace = TempleWebsite
-build_property.ProjectDir = c:\Users\yoges\Desktop\Temple_Site\
+build_property.ProjectDir = C:\Users\yoges\Desktop\Temple_Site\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = c:\Users\yoges\Desktop\Temple_Site
+build_property.MSBuildProjectDirectory = C:\Users\yoges\Desktop\Temple_Site
 build_property._RazorSourceGeneratorDebug = 
 
-[c:/Users/yoges/Desktop/Temple_Site/Views/Donation/Index.cshtml]
+[C:/Users/yoges/Desktop/Temple_Site/Views/Donation/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9uYXRpb25cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/yoges/Desktop/Temple_Site/Views/Events/Index.cshtml]
+[C:/Users/yoges/Desktop/Temple_Site/Views/Events/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/yoges/Desktop/Temple_Site/Views/Home/About.cshtml]
+[C:/Users/yoges/Desktop/Temple_Site/Views/Home/About.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBYm91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/yoges/Desktop/Temple_Site/Views/Home/Contact.cshtml]
+[C:/Users/yoges/Desktop/Temple_Site/Views/Home/Contact.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb250YWN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/yoges/Desktop/Temple_Site/Views/Home/Index.cshtml]
+[C:/Users/yoges/Desktop/Temple_Site/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/yoges/Desktop/Temple_Site/Views/Seva/Book.cshtml]
+[C:/Users/yoges/Desktop/Temple_Site/Views/Seva/Book.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V2YVxCb29rLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/yoges/Desktop/Temple_Site/Views/Seva/Index.cshtml]
+[C:/Users/yoges/Desktop/Temple_Site/Views/Seva/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V2YVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/yoges/Desktop/Temple_Site/Views/Shared/_Layout.cshtml]
+[C:/Users/yoges/Desktop/Temple_Site/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/yoges/Desktop/Temple_Site/Views/_ViewImports.cshtml]
+[C:/Users/yoges/Desktop/Temple_Site/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/yoges/Desktop/Temple_Site/Views/_ViewStart.cshtml]
+[C:/Users/yoges/Desktop/Temple_Site/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

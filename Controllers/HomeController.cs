@@ -9,9 +9,11 @@ namespace TempleWebsite.Controllers
         {
             var featuredEvents = new List<Event>
             {
-                new Event { Id = 1, Title = "Brahmotsavam Festival", Description = "Annual grand festival celebrating Lord Balaji", EventDate = DateTime.Now.AddDays(30), IsFeatured = true, EventTime = "6:00 AM - 10:00 PM" },
-                new Event { Id = 2, Title = "Vaikunta Ekadashi", Description = "Sacred day dedicated to Lord Vishnu", EventDate = DateTime.Now.AddDays(60), IsFeatured = true, EventTime = "4:00 AM - 12:00 PM" }
+                new Event { Id = 1, Title = "Maha Shivaratri", Description = "Great night of Lord Shiva with special abhishekam", EventDate = DateTime.Now.AddDays(15), IsFeatured = true, EventTime = "6:00 PM - 6:00 AM" },
+                new Event { Id = 2, Title = "Sri Rama Navami", Description = "Birth celebration of Lord Rama with Sita, Lakshmana", EventDate = DateTime.Now.AddDays(45), IsFeatured = true, EventTime = "6:00 AM - 9:00 PM" },
+                new Event { Id = 3, Title = "Krishna Janmashtami", Description = "Birth celebration of Lord Krishna with Radha", EventDate = DateTime.Now.AddDays(75), IsFeatured = true, EventTime = "11:30 PM - 12:30 AM" }
             };
+            
             return View(featuredEvents);
         }
 

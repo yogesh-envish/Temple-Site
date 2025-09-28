@@ -26,169 +26,38 @@
     </div>
 </section>
 
-<section class="donation-options py-5 bg-light">
+<section class="qr-donation-section py-5">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 mb-4">
-                <div class="donation-purpose-card">
-                    <i class="fas fa-temple donation-purpose-icon"></i>
-                    <h4>Temple Maintenance</h4>
-                    <p>Support daily temple operations, maintenance, and infrastructure development.</p>
-                    <div class="suggested-amounts">
-                        <span class="amount-tag" data-amount="101">₹101</span>
-                        <span class="amount-tag" data-amount="501">₹501</span>
-                        <span class="amount-tag" data-amount="1001">₹1001</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 mb-4">
-                <div class="donation-purpose-card">
-                    <i class="fas fa-utensils donation-purpose-icon"></i>
-                    <h4>Annadanam</h4>
-                    <p>Sponsor free meals for devotees and support our daily prasadam distribution.</p>
-                    <div class="suggested-amounts">
-                        <span class="amount-tag" data-amount="251">₹251</span>
-                        <span class="amount-tag" data-amount="751">₹751</span>
-                        <span class="amount-tag" data-amount="2001">₹2001</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 mb-4">
-                <div class="donation-purpose-card">
-                    <i class="fas fa-calendar-alt donation-purpose-icon"></i>
-                    <h4>Festival Celebrations</h4>
-                    <p>Support grand festival celebrations and special events throughout the year.</p>
-                    <div class="suggested-amounts">
-                        <span class="amount-tag" data-amount="151">₹151</span>
-                        <span class="amount-tag" data-amount="1001">₹1001</span>
-                        <span class="amount-tag" data-amount="5001">₹5001</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="donation-form-section py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <div class="donation-form-container">
-                    <div class="form-header text-center mb-4">
-                        <i class="fas fa-heart form-icon"></i>
-                        <h3>Donation Form</h3>
-                        <p class="text-muted">Your contribution makes a difference</p>
+            <div class="col-lg-8 mx-auto text-center">
+                <div class="qr-container">
+                    <div class="qr-header mb-4">
+                        <i class="fas fa-qrcode qr-icon"></i>
+                        <h3>Scan & Donate</h3>
+                        <p class="text-muted">Use any UPI app to scan and donate</p>
                     </div>
                     
-                    <form asp-action="Donate" method="post" class="donation-form">
-                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
-                        
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="DonorName" class="form-label">Full Name *</label>
-                                <input asp-for="DonorName" class="form-control" placeholder="Enter your full name">
-                                <span asp-validation-for="DonorName" class="text-danger"></span>
+                    <div class="qr-code-wrapper">
+                        <img src="~/images/QRCode.jpeg" alt="Donation QR Code" class="qr-code-image">
+                    </div>
+                    
+                    <div class="qr-instructions mt-4">
+                        <h5>How to Donate:</h5>
+                        <div class="instruction-steps">
+                            <div class="step">
+                                <i class="fas fa-mobile-alt step-icon"></i>
+                                <span>Open any UPI app</span>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="Email" class="form-label">Email Address *</label>
-                                <input asp-for="Email" class="form-control" placeholder="Enter your email">
-                                <span asp-validation-for="Email" class="text-danger"></span>
+                            <div class="step">
+                                <i class="fas fa-camera step-icon"></i>
+                                <span>Scan the QR code</span>
                             </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="Phone" class="form-label">Phone Number *</label>
-                                <input asp-for="Phone" class="form-control" placeholder="Enter your phone number">
-                                <span asp-validation-for="Phone" class="text-danger"></span>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="Amount" class="form-label">Donation Amount (₹) *</label>
-                                <input asp-for="Amount" type="number" class="form-control" placeholder="Enter amount" min="1" id="donationAmount">
-                                <span asp-validation-for="Amount" class="text-danger"></span>
+                            <div class="step">
+                                <i class="fas fa-rupee-sign step-icon"></i>
+                                <span>Enter amount & donate</span>
                             </div>
                         </div>
-                        
-                        <div class="mb-3">
-                            <label asp-for="Purpose" class="form-label">Donation Purpose</label>
-                            <select asp-for="Purpose" class="form-select">
-                                <option value="">Select purpose (optional)</option>
-                                <option value="Temple Maintenance">Temple Maintenance</option>
-                                <option value="Annadanam">Annadanam (Free Meals)</option>
-                                <option value="Festival Celebrations">Festival Celebrations</option>
-                                <option value="Daily Pooja">Daily Pooja & Rituals</option>
-                                <option value="General Donation">General Donation</option>
-                            </select>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <input asp-for="IsAnonymous" class="form-check-input" type="checkbox">
-                                <label asp-for="IsAnonymous" class="form-check-label">
-                                    Make this an anonymous donation
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <div class="payment-methods mb-4">
-                            <h5>Payment Methods</h5>
-                            <div class="payment-options">
-                                <div class="payment-option">
-                                    <input type="radio" name="paymentMethod" id="creditCard" value="creditCard" checked>
-                                    <label for="creditCard">
-                                        <i class="fas fa-credit-card"></i>
-                                        Credit/Debit Card
-                                    </label>
-                                </div>
-                                <div class="payment-option">
-                                    <input type="radio" name="paymentMethod" id="upi" value="upi">
-                                    <label for="upi">
-                                        <i class="fas fa-mobile-alt"></i>
-                                        UPI Payment
-                                    </label>
-                                </div>
-                                <div class="payment-option">
-                                    <input type="radio" name="paymentMethod" id="netbanking" value="netbanking">
-                                    <label for="netbanking">
-                                        <i class="fas fa-university"></i>
-                                        Net Banking
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="donation-summary mb-4">
-                            <h5>Donation Summary</h5>
-                            <div class="summary-content">
-                                <div class="summary-item">
-                                    <span>Donation Amount:</span>
-                                    <span id="summaryAmount">₹0</span>
-                                </div>
-                                <div class="summary-item">
-                                    <span>Purpose:</span>
-                                    <span id="summaryPurpose">General Donation</span>
-                                </div>
-                                <div class="summary-item total">
-                                    <span>Total Amount:</span>
-                                    <span id="totalAmount">₹0</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-temple btn-lg">
-                                <i class="fas fa-heart me-2"></i>Donate Now
-                            </button>
-                        </div>
-                        
-                        <div class="donation-note mt-3">
-                            <p class="text-muted text-center">
-                                <i class="fas fa-shield-alt"></i>
-                                Your donation is secure and will be processed through encrypted payment gateway.
-                                You will receive a donation receipt via email.
-                            </p>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -383,10 +252,76 @@
     font-weight: 500;
 }
 
-.donation-note {
-    background: rgba(255, 107, 53, 0.1);
+.qr-donation-section {
+    background: linear-gradient(135deg, #fff8dc, #f0f8ff);
+}
+
+.qr-container {
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    border: 3px solid var(--temple-secondary);
+}
+
+.qr-icon {
+    font-size: 3rem;
+    color: var(--temple-primary);
+    margin-bottom: 1rem;
+}
+
+.qr-code-wrapper {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    display: inline-block;
+    border: 2px solid var(--temple-light);
+}
+
+.qr-code-image {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.qr-instructions {
+    background: var(--temple-light);
+    padding: 2rem;
+    border-radius: 15px;
+    margin-top: 2rem;
+}
+
+.instruction-steps {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    min-width: 150px;
+}
+
+.step-icon {
+    font-size: 2rem;
+    color: var(--temple-primary);
+    margin-bottom: 1rem;
+    background: white;
     padding: 1rem;
-    border-radius: 8px;
-    border-left: 4px solid var(--temple-primary);
+    border-radius: 50%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.step span {
+    font-weight: 500;
+    color: var(--temple-accent);
 }
 </style>

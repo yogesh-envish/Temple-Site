@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "eNeP25ixyRnTnrF99qut2q2jcf/owEISGJdw+t8IyHc=",
+  "Hash": "8FrAcqCQKD95jpF8ISLrSutG4DJnJRhglyvhUaaBQD4=",
   "Source": "TempleWebsite",
   "BasePath": "_content/TempleWebsite",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "TempleWebsite\\wwwroot",
       "Source": "TempleWebsite",
-      "ContentRoot": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
       "BasePath": "_content/TempleWebsite",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\css\\bootstrap.min.css",
+      "Identity": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\css\\bootstrap.min.css",
       "SourceId": "TempleWebsite",
       "SourceType": "Discovered",
-      "ContentRoot": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
       "BasePath": "_content/TempleWebsite",
       "RelativePath": "css/bootstrap.min.css",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap.min.css"
     },
     {
-      "Identity": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\css\\site.css",
       "SourceId": "TempleWebsite",
       "SourceType": "Discovered",
-      "ContentRoot": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
       "BasePath": "_content/TempleWebsite",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\final_logo.jpg",
+      "Identity": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\final_logo.jpg",
       "SourceId": "TempleWebsite",
       "SourceType": "Discovered",
-      "ContentRoot": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
       "BasePath": "_content/TempleWebsite",
       "RelativePath": "images/final_logo.jpg",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\images\\final_logo.jpg"
     },
     {
-      "Identity": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\logo.webp",
+      "Identity": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\logo.webp",
       "SourceId": "TempleWebsite",
       "SourceType": "Discovered",
-      "ContentRoot": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
       "BasePath": "_content/TempleWebsite",
       "RelativePath": "images/logo.webp",
       "AssetKind": "All",
@@ -93,10 +93,29 @@
       "OriginalItemSpec": "wwwroot\\images\\logo.webp"
     },
     {
-      "Identity": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\ranganathar-idol.jpg.jpeg",
+      "Identity": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\QRCode.jpeg",
       "SourceId": "TempleWebsite",
       "SourceType": "Discovered",
-      "ContentRoot": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
+      "BasePath": "_content/TempleWebsite",
+      "RelativePath": "images/QRCode.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\QRCode.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\ranganathar-idol.jpg.jpeg",
+      "SourceId": "TempleWebsite",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
       "BasePath": "_content/TempleWebsite",
       "RelativePath": "images/ranganathar-idol.jpg.jpeg",
       "AssetKind": "All",
@@ -112,10 +131,10 @@
       "OriginalItemSpec": "wwwroot\\images\\ranganathar-idol.jpg.jpeg"
     },
     {
-      "Identity": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\temple-bg.jpg.jpeg",
+      "Identity": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\temple-bg.jpg.jpeg",
       "SourceId": "TempleWebsite",
       "SourceType": "Discovered",
-      "ContentRoot": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
       "BasePath": "_content/TempleWebsite",
       "RelativePath": "images/temple-bg.jpg.jpeg",
       "AssetKind": "All",
@@ -131,10 +150,10 @@
       "OriginalItemSpec": "wwwroot\\images\\temple-bg.jpg.jpeg"
     },
     {
-      "Identity": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\temple-facade.jpg.jpeg",
+      "Identity": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\images\\temple-facade.jpg.jpeg",
       "SourceId": "TempleWebsite",
       "SourceType": "Discovered",
-      "ContentRoot": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
       "BasePath": "_content/TempleWebsite",
       "RelativePath": "images/temple-facade.jpg.jpeg",
       "AssetKind": "All",
@@ -150,10 +169,10 @@
       "OriginalItemSpec": "wwwroot\\images\\temple-facade.jpg.jpeg"
     },
     {
-      "Identity": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\js\\bootstrap.bundle.min.js",
+      "Identity": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\js\\bootstrap.bundle.min.js",
       "SourceId": "TempleWebsite",
       "SourceType": "Discovered",
-      "ContentRoot": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
       "BasePath": "_content/TempleWebsite",
       "RelativePath": "js/bootstrap.bundle.min.js",
       "AssetKind": "All",
@@ -169,10 +188,10 @@
       "OriginalItemSpec": "wwwroot\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Identity": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\js\\site.js",
+      "Identity": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\js\\site.js",
       "SourceId": "TempleWebsite",
       "SourceType": "Discovered",
-      "ContentRoot": "c:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\yoges\\Desktop\\Temple_Site\\wwwroot\\",
       "BasePath": "_content/TempleWebsite",
       "RelativePath": "js/site.js",
       "AssetKind": "All",

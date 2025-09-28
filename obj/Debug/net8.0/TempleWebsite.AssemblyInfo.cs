@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TempleWebsite")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8a677c721a3600de2c0e171968926c7e2374edf0")]
 [assembly: System.Reflection.AssemblyProductAttribute("TempleWebsite")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TempleWebsite")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
