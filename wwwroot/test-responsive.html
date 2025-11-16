@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Design Test - History Section</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .test-controls {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        .test-controls button {
+            display: block;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+        .viewport-info {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            z-index: 1000;
+        }
+        .test-frame {
+            margin: 0 auto;
+            border: 2px solid #333;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        .test-container {
+            background: #f0f0f0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-controls">
+            <h6>Test Viewports</h6>
+            <button class="btn btn-sm btn-primary" onclick="setViewport(1920, 1080)">Desktop 1920px</button>
+            <button class="btn btn-sm btn-primary" onclick="setViewport(1366, 768)">Desktop 1366px</button>
+            <button class="btn btn-sm btn-primary" onclick="setViewport(1024, 768)">Desktop 1024px</button>
+            <button class="btn btn-sm btn-warning" onclick="setViewport(768, 1024)">Tablet 768px</button>
+            <button class="btn btn-sm btn-danger" onclick="setViewport(375, 667)">Mobile 375px</button>
+            <button class="btn btn-sm btn-secondary" onclick="setViewport('100%', 'auto')">Full Width</button>
+        </div>
+
+        <div class="viewport-info" id="viewportInfo">
+            Viewport: <span id="currentWidth">100%</span> x <span id="currentHeight">auto</span>
+        </div>
+
+        <iframe id="testFrame" class="test-frame" style="width: 100%; height: 90vh;" srcdoc='
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+    <div class="page-header">
+        <div class="container">
+            <h1>About Sri Kaliyuga Ranganathar Temple</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">About Us</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <section class="history-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <img src="images/temple-facade.jpg.jpeg" 
+                         alt="Front view of Sri Adisesha Thiruthalam, Kaliyuga Ranganathar Temple showing the temple facade with traditional South Indian architecture and sacred entrance" 
+                         class="img-fluid rounded shadow"
+                         role="img">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="section-title mb-4">Divine History</h2>
+                    <div class="history-content divine-text" role="article" aria-label="Temple Divine History">
+                        <p>Hari Om Namo Narayanaya Namaha. Our Sri Adisesha Thiruthalam, Kaliyuga Ranganathar Temple, is a holy place located in Nagalur village under Athani in the Erode district'\''s Anthiyur division. In 2008, on a piece of farmland I purchased, the supreme power Sri Mahashakti Ambikai appeared to me in the form of a Linga and, after leaving from Tirupati, manifested herself to descend into the well located in this farmland. Following that, a divine event occurred in my own body as well. She declared, '\''I have ingested the five elements at the mouth and conceived them in the stomach, and I stand here.'\'' Till now, all 14 kumbhabhishekams have been performed only on Amavasya (new moon) days, without altering the date or consulting the Panchangam (Hindu calendar/almanac). When Sri Mahashakti Ambikai appeared to me, she said that the Kaliyugam will end in 2088. She also declared that a 12-tier Rajagopuram (temple tower) would rise at this place. Lord Perumal himself will build his own temple here. When Pralaya (cosmic dissolution) occurs, Bhagavan himself will incarnate, ingest the five elements at the mouth and conceive them in the stomach, and at the end of the Pralaya, He will expel them from His mouth.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+        '></iframe>
+    </div>
+
+    <script>
+        function setViewport(width, height) {
+            const frame = document.getElementById('testFrame');
+            frame.style.width = typeof width === 'number' ? width + 'px' : width;
+            frame.style.height = typeof height === 'number' ? height + 'px' : '90vh';
+            
+            document.getElementById('currentWidth').textContent = width;
+            document.getElementById('currentHeight').textContent = height;
+        }
+
+        // Update viewport info on resize
+        window.addEventListener('resize', function() {
+            const frame = document.getElementById('testFrame');
+            document.getElementById('currentWidth').textContent = frame.offsetWidth + 'px';
+        });
+    </script>
+</body>
+</html>

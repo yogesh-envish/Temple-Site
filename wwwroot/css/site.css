@@ -574,3 +574,87 @@ h1, h2, h3, h4, h5, h6 {
 .loading {
     animation: pulse 1.5s infinite;
 }
+
+/* History Section Styles */
+.history-section {
+    background: white;
+    padding: 5rem 0;
+}
+
+.history-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.divine-text {
+    font-family: 'Lora', serif;
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: #333;
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+.history-temple-image {
+    max-width: 600px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 3rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* Responsive Design for History Section */
+@media (max-width: 992px) {
+    .history-section {
+        padding: 4rem 0;
+    }
+    
+    .history-temple-image {
+        max-width: 500px;
+        margin-bottom: 2.5rem;
+    }
+    
+    .divine-text {
+        font-size: 1.1rem;
+        line-height: 1.85;
+    }
+}
+
+@media (max-width: 768px) {
+    .history-section {
+        padding: 3rem 0;
+    }
+    
+    .history-content {
+        padding: 0 1.5rem;
+    }
+    
+    .history-temple-image {
+        max-width: 100%;
+        margin-bottom: 2rem;
+        border-radius: 10px;
+    }
+    
+    .divine-text {
+        font-size: 1.05rem;
+        line-height: 1.8;
+    }
+}
+
+@media (max-width: 576px) {
+    .history-section {
+        padding: 2rem 0;
+    }
+    
+    .history-content {
+        padding: 0 1rem;
+    }
+    
+    .divine-text {
+        font-size: 1rem;
+        line-height: 1.75;
+    }
+}
