@@ -1,4 +1,4 @@
-# Sri Balaji Temple Website
+# Sri Kaliyuga Ranganathar Temple Website
 
 A modern, responsive website for Lord Ranganathar temple built with ASP.NET Core MVC, featuring traditional Indian design aesthetics and comprehensive temple management features.
 
