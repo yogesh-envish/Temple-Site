@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Isolation Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .pass {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .fail {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <h1>Language Toggle Page Isolation Test</h1>
+    <p>This page tests that the language toggle functionality is isolated to the About page only.</p>
+
+    <div class="test-section">
+        <h2>Test 1: Language Manager Initialization</h2>
+        <div id="test1-result" class="test-result info">Testing...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 2: Language Toggle Presence</h2>
+        <div id="test2-result" class="test-result info">Testing...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 3: Data-Lang-Key Elements</h2>
+        <div id="test3-result" class="test-result info">Testing...</div>
+        <p>This page has some test elements:</p>
+        <div data-lang-key="testElement">This should NOT be affected by language changes</div>
+        <div data-lang-key="anotherTest">Another test element that should remain unchanged</div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 4: Global Window Object</h2>
+        <div id="test4-result" class="test-result info">Testing...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>Navigation Links</h2>
+        <p>Navigate to test isolation:</p>
+        <ul>
+            <li><a href="/Home/About">About Page (with language toggle)</a></li>
+            <li><a href="/Home/Index">Home Page (should not be affected)</a></li>
+            <li><a href="test-page-isolation.html">This Test Page (should not be affected)</a></li>
+        </ul>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Test 1: Check if LanguageManager is initialized
+            setTimeout(() => {
+                const test1Result = document.getElementById('test1-result');
+                if (window.languageManager) {
+                    test1Result.textContent = 'FAIL: LanguageManager should NOT be initialized on this page';
+                    test1Result.className = 'test-result fail';
+                } else {
+                    test1Result.textContent = 'PASS: LanguageManager is not initialized (correct behavior)';
+                    test1Result.className = 'test-result pass';
+                }
+            }, 1000);
+
+            // Test 2: Check if language toggle is present
+            const test2Result = document.getElementById('test2-result');
+            const languageToggle = document.querySelector('.language-toggle');
+            if (languageToggle) {
+                test2Result.textContent = 'FAIL: Language toggle should NOT be present on this page';
+                test2Result.className = 'test-result fail';
+            } else {
+                test2Result.textContent = 'PASS: Language toggle is not present (correct behavior)';
+                test2Result.className = 'test-result pass';
+            }
+
+            // Test 3: Check data-lang-key elements
+            const test3Result = document.getElementById('test3-result');
+            const dataLangElements = document.querySelectorAll('[data-lang-key]');
+            if (dataLangElements.length > 0) {
+                test3Result.textContent = `INFO: Found ${dataLangElements.length} data-lang-key elements (they should remain unchanged)`;
+                test3Result.className = 'test-result info';
+                
+                // Store original content to verify it doesn't change
+                const originalContent = Array.from(dataLangElements).map(el => el.textContent);
+                
+                // Check after 2 seconds that content hasn't changed
+                setTimeout(() => {
+                    let contentChanged = false;
+                    dataLangElements.forEach((el, index) => {
+                        if (el.textContent !== originalContent[index]) {
+                            contentChanged = true;
+                        }
+                    });
+                    
+                    if (contentChanged) {
+                        test3Result.textContent = 'FAIL: Data-lang-key elements were modified (should not happen)';
+                        test3Result.className = 'test-result fail';
+                    } else {
+                        test3Result.textContent = 'PASS: Data-lang-key elements remain unchanged (correct behavior)';
+                        test3Result.className = 'test-result pass';
+                    }
+                }, 2000);
+            } else {
+                test3Result.textContent = 'INFO: No data-lang-key elements found on this page';
+                test3Result.className = 'test-result info';
+            }
+
+            // Test 4: Check global window object
+            const test4Result = document.getElementById('test4-result');
+            setTimeout(() => {
+                if (typeof window.LanguageManager === 'undefined' && typeof window.languageManager === 'undefined') {
+                    test4Result.textContent = 'PASS: No language-related objects in global scope (correct behavior)';
+                    test4Result.className = 'test-result pass';
+                } else {
+                    test4Result.textContent = 'FAIL: Language-related objects found in global scope';
+                    test4Result.className = 'test-result fail';
+                }
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

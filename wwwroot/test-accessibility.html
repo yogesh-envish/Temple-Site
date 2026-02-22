@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Language Toggle Accessibility Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css" />
+    <style>
+        body { padding: 2rem; }
+        .test-section { margin: 2rem 0; padding: 1rem; border: 1px solid #ddd; border-radius: 8px; }
+        .test-result { margin: 1rem 0; padding: 0.5rem; border-radius: 4px; }
+        .pass { background-color: #d4edda; color: #155724; }
+        .fail { background-color: #f8d7da; color: #721c24; }
+        .info { background-color: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Language Toggle Accessibility Test</h1>
+        
+        <div class="test-section">
+            <h2>Language Toggle Component</h2>
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <h3>Test Page Content</h3>
+                <!-- Language Toggle Component -->
+                <div class="language-toggle" role="group" aria-label="Language selection">
+                    <button class="lang-btn active" 
+                            data-lang="en" 
+                            role="button"
+                            aria-pressed="true"
+                            aria-label="English language (current selection)" 
+                            aria-describedby="lang-status"
+                            title="English (current)"
+                            tabindex="0">
+                        <span class="flag-icon" aria-hidden="true">🇺🇸</span>
+                        <span class="lang-text">EN</span>
+                    </button>
+                    <button class="lang-btn" 
+                            data-lang="ta" 
+                            role="button"
+                            aria-pressed="false"
+                            aria-label="Tamil language" 
+                            aria-describedby="lang-status"
+                            title="Switch to Tamil"
+                            tabindex="0">
+                        <span class="flag-icon" aria-hidden="true">🇮🇳</span>
+                        <span class="lang-text">தமிழ்</span>
+                    </button>
+                    <!-- Screen reader status announcement -->
+                    <div id="lang-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test Content</h2>
+            <section lang="en">
+                <h3 data-lang-key="sectionTitle">Divine History</h3>
+                <div role="article" aria-label="Temple Divine History" lang="en">
+                    <p data-lang-key="historyContent">This is test content that will be translated when language is switched.</p>
+                </div>
+            </section>
+        </div>
+
+        <div class="test-section">
+            <h2>Accessibility Test Results</h2>
+            <div id="test-results">
+                <div class="info">Running accessibility tests...</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Keyboard Navigation Instructions</h2>
+            <ul>
+                <li><strong>Tab:</strong> Navigate between language options (English → Tamil)</li>
+                <li><strong>Enter/Space:</strong> Activate the focused language option</li>
+                <li><strong>Focus Indicator:</strong> Focused button will have a bright golden outline and background highlight</li>
+            </ul>
+            <p><strong>Navigation Flow:</strong></p>
+            <ol>
+                <li>English button is highlighted by default</li>
+                <li>Press Tab to move focus to Tamil button</li>
+                <li>Press Enter or Space to switch to Tamil language</li>
+                <li>Press Tab again to cycle back to English button</li>
+            </ol>
+        </div>
+    </div>
+
+    <script src="js/language-manager.js"></script>
+    <script src="js/accessibility-validator.js"></script>
+    <script>
+        // Enhanced accessibility test suite
+        function runAccessibilityTests() {
+            const results = document.getElementById('test-results');
+            results.innerHTML = '';
+            
+            // Use the comprehensive validator
+            if (window.AccessibilityValidator) {
+                const validator = new window.AccessibilityValidator();
+                const testResults = validator.runAllTests();
+                
+                // Display summary
+                const summary = document.createElement('div');
+                summary.className = `test-result ${testResults.successRate >= 80 ? 'pass' : 'fail'}`;
+                summary.innerHTML = `
+                    <strong>Overall Results:</strong> ${testResults.passed}/${testResults.total} tests passed 
+                    (${testResults.successRate}% success rate)
+                `;
+                results.appendChild(summary);
+                
+                // Display individual results
+                validator.results.forEach(result => {
+                    const resultDiv = document.createElement('div');
+                    resultDiv.className = `test-result ${result.passed ? 'pass' : 'fail'}`;
+                    resultDiv.innerHTML = `
+                        ${result.passed ? '✓' : '✗'} <strong>${result.category}:</strong> ${result.name}
+                        ${result.error ? `<br><small>Error: ${result.error}</small>` : ''}
+                    `;
+                    results.appendChild(resultDiv);
+                });
+                
+                return testResults;
+            } else {
+                // Fallback to basic tests
+                const basicTests = [
+                    {
+                        name: 'Language toggle has proper ARIA role',
+                        test: () => {
+                            const toggle = document.querySelector('.language-toggle');
+                            return toggle && toggle.getAttribute('role') === 'radiogroup';
+                        }
+                    },
+                    {
+                        name: 'Language buttons have radio role',
+                        test: () => {
+                            const buttons = document.querySelectorAll('.lang-btn');
+                            return Array.from(buttons).every(btn => btn.getAttribute('role') === 'radio');
+                        }
+                    }
+                ];
+                
+                basicTests.forEach(test => {
+                    const result = document.createElement('div');
+                    result.className = `test-result ${test.test() ? 'pass' : 'fail'}`;
+                    result.textContent = `${test.test() ? '✓' : '✗'} ${test.name}`;
+                    results.appendChild(result);
+                });
+            }
+        }
+        
+        // Run tests when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(runAccessibilityTests, 1000);
+        });
+        
+        // Re-run tests when language changes
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('lang-btn')) {
+                setTimeout(runAccessibilityTests, 500);
+            }
+        });
+        
+        // Keyboard testing helper
+        function testKeyboardNavigation() {
+            const activeBtn = document.querySelector('.lang-btn.active');
+            if (activeBtn) {
+                activeBtn.focus();
+                console.log('Focus set to active language button. Try using arrow keys, Enter, or Space.');
+            }
+        }
+        
+        // Add keyboard test button
+        document.addEventListener('DOMContentLoaded', () => {
+            const testSection = document.querySelector('.test-section:last-child');
+            if (testSection) {
+                const keyboardTestBtn = document.createElement('button');
+                keyboardTestBtn.textContent = 'Test Keyboard Navigation';
+                keyboardTestBtn.className = 'btn btn-primary mt-2';
+                keyboardTestBtn.onclick = testKeyboardNavigation;
+                testSection.appendChild(keyboardTestBtn);
+            }
+        });
+    </script>
+</body>
+</html>
