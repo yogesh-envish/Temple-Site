@@ -2,33 +2,124 @@
     ViewData["Title"] = "About Us";
 }
 
+<!-- Language Error Display with enhanced styling -->
+<div class="language-error alert alert-danger" style="display: none; margin: 1rem;" role="alert" aria-live="assertive"></div>
+
+<!-- Network Status Indicator -->
+<div id="network-status" class="network-status" style="display: none;" aria-live="polite"></div>
+
 <div class="page-header">
     <div class="container">
-        <h1>About Sri Kaliyuga Ranganathar Temple</h1>
+        <div class="d-flex justify-content-between align-items-start mb-3">
+            <h1 data-lang-key="pageHeader">About Sri Kaliyuga Ranganathar Temple</h1>
+            <!-- Language Toggle Component with Enhanced Loading States -->
+            <div class="language-toggle" role="group" aria-label="Language selection">
+                <button class="lang-btn active" 
+                        data-lang="en" 
+                        role="button"
+                        aria-pressed="true"
+                        aria-label="English language (current selection)" 
+                        aria-describedby="lang-status"
+                        aria-busy="false"
+                        title="English (current)"
+                        tabindex="0">
+                    <span class="flag-icon" aria-hidden="true">🇺🇸</span>
+                    <span class="lang-text">EN</span>
+                </button>
+                <button class="lang-btn" 
+                        data-lang="ta" 
+                        role="button"
+                        aria-pressed="false"
+                        aria-label="Tamil language" 
+                        aria-describedby="lang-status"
+                        aria-busy="false"
+                        title="Switch to Tamil"
+                        tabindex="0">
+                    <span class="flag-icon" aria-hidden="true">🇮🇳</span>
+                    <span class="lang-text">தமிழ்</span>
+                </button>
+                <!-- Loading Indicator -->
+                <div class="loading-indicator" aria-hidden="true">
+                    <span class="spinner"></span>
+                </div>
+                <!-- Screen reader status announcement -->
+                <div id="lang-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+            </div>
+        </div>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item active">About Us</li>
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" data-lang-key="breadcrumb.home">Home</a></li>
+                <li class="breadcrumb-item active" data-lang-key="breadcrumb.about">About Us</li>
             </ol>
         </nav>
     </div>
 </div>
 
-<section class="history-section py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 mb-4">
-                <img src="~/images/temple-facade.jpg.jpeg" 
-                     alt="Front view of Sri Adisesha Thiruthalam, Kaliyuga Ranganathar Temple showing the temple facade with traditional South Indian architecture and sacred entrance" 
-                     class="img-fluid rounded shadow"
-                     role="img">
-            </div>
-            <div class="col-lg-6">
-                <h2 class="section-title mb-4">Divine History</h2>
-                <div class="history-content divine-text" role="article" aria-label="Temple Divine History">
-                    <p>Hari Om Namo Narayanaya Namaha. Our Sri Adisesha Thiruthalam, Kaliyuga Ranganathar Temple, is a holy place located in Nagalur village under Athani in the Erode district's Anthiyur division. In 2008, on a piece of farmland I purchased, the supreme power Sri Mahashakti Ambikai appeared to me in the form of a Linga and, after leaving from Tirupati, manifested herself to descend into the well located in this farmland. Following that, a divine event occurred in my own body as well. She declared, 'I have ingested the five elements at the mouth and conceived them in the stomach, and I stand here.' Till now, all 14 kumbhabhishekams have been performed only on Amavasya (new moon) days, without altering the date or consulting the Panchangam (Hindu calendar/almanac). When Sri Mahashakti Ambikai appeared to me, she said that the Kaliyugam will end in 2088. She also declared that a 12-tier Rajagopuram (temple tower) would rise at this place. Lord Perumal himself will build his own temple here. When Pralaya (cosmic dissolution) occurs, Bhagavan himself will incarnate, ingest the five elements at the mouth and conceive them in the stomach, and at the end of the Pralaya, He will expel them from His mouth.</p>
+<main id="main-content" role="main">
+    <section class="history-section py-5 fade-transition" lang="en">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <img src="~/images/temple-facade.jpg.jpeg" 
+                         alt="Front view of Sri Adisesha Thiruthalam, Kaliyuga Ranganathar Temple showing the temple facade with traditional South Indian architecture and sacred entrance" 
+                         class="img-fluid rounded shadow temple-image"
+                         data-lang-key="imageAlt"
+                         role="img"
+                         loading="lazy"
+                         onerror="this.style.display='none';">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="section-title mb-4" data-lang-key="sectionTitle">Divine History</h2>
+                    <div class="history-content divine-text" role="article" aria-label="Temple Divine History" lang="en">
+                        <p data-lang-key="historyContent">Hari Om Namo Narayanaya Namaha. Our Sri Adisesha Thiruthalam, Kaliyuga Ranganathar Temple, is a holy place located in Nagalur village under Athani in the Erode district's Anthiyur division. In 2008, on a piece of farmland I purchased, the supreme power Sri Mahashakti Ambikai appeared to me in the form of a Linga and, after leaving from Tirupati, manifested herself to descend into the well located in this farmland. Following that, a divine event occurred in my own body as well. She declared, 'I have ingested the five elements at the mouth and conceived them in the stomach, and I stand here.' Till now, all 14 kumbhabhishekams have been performed only on Amavasya (new moon) days, without altering the date or consulting the Panchangam (Hindu calendar/almanac). When Sri Mahashakti Ambikai appeared to me, she said that the Kaliyugam will end in 2088. She also declared that a 12-tier Rajagopuram (temple tower) would rise at this place. Lord Perumal himself will build his own temple here. When Pralaya (cosmic dissolution) occurs, Bhagavan himself will incarnate, ingest the five elements at the mouth and conceive them in the stomach, and at the end of the Pralaya, He will expel them from His mouth.</p>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
+</main>
+
+<!-- Graceful Degradation Script -->
+<noscript>
+    <style>
+        .language-toggle { display: none; }
+        .language-error { 
+            display: block !important; 
+            background: #f8d7da; 
+            color: #721c24; 
+            border: 1px solid #f5c6cb; 
+        }
+    </style>
+    <div class="language-error">
+        JavaScript is required for language switching functionality. Please enable JavaScript in your browser.
     </div>
-</section>
+</noscript>
+
+@section Scripts {
+    <script src="~/js/language-manager.js" asp-append-version="true"></script>
+    
+    <!-- Performance monitoring script -->
+    <script>
+        // Add performance monitoring
+        if ('performance' in window && 'mark' in performance) {
+            performance.mark('language-manager-init-start');
+        }
+        
+        // Add error boundary for JavaScript errors
+        window.addEventListener('error', function(e) {
+            console.error('JavaScript error:', e.error);
+            
+            // Show fallback error message if language manager fails
+            const errorContainer = document.querySelector('.language-error');
+            if (errorContainer && !window.languageManager) {
+                errorContainer.textContent = 'Language switching is temporarily unavailable.';
+                errorContainer.style.display = 'block';
+            }
+        });
+        
+        // Add unhandled promise rejection handler
+        window.addEventListener('unhandledrejection', function(e) {
+            console.error('Unhandled promise rejection:', e.reason);
+        });
+    </script>
+}

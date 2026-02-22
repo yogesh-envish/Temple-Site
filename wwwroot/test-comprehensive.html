@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Language Toggle Test Suite</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .test-controls {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .progress-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #f0f0f0;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .test-suites {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .test-suite {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .test-suite h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .test-suite .icon {
+            font-size: 1.5em;
+        }
+
+        .test-suite .status {
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .status.pending {
+            background: #f0f0f0;
+            color: #666;
+        }
+
+        .status.running {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status.passed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status.failed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .test-results {
+            margin-top: 15px;
+        }
+
+        .result-item {
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 5px;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .result-item.pass {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .result-item.fail {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .result-item.info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .summary {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .summary h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .summary-card {
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .summary-card.total {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .summary-card.passed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .summary-card.failed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .summary-card.info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .summary-card .number {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .summary-card .label {
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Mock language toggle for testing */
+        .language-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .lang-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        #lang-status {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #333;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 300px;
+            z-index: 1000;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧪 Comprehensive Language Toggle Test Suite</h1>
+            <p>Complete testing coverage for all requirements</p>
+        </div>
+
+        <div class="test-controls">
+            <button id="runAllBtn" class="btn btn-primary">▶️ Run All Tests</button>
+            <button id="clearBtn" class="btn btn-secondary">🗑️ Clear Results</button>
+            <button id="exportBtn" class="btn btn-secondary">📥 Export Results</button>
+        </div>
+
+        <div class="progress-container hidden" id="progressContainer">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill">0%</div>
+            </div>
+        </div>
+
+        <div class="test-suites" id="testSuites"></div>
+
+        <div class="summary hidden" id="summary">
+            <h2>📊 Test Summary</h2>
+            <div class="summary-grid">
+                <div class="summary-card total">
+                    <div class="number" id="totalTests">0</div>
+                    <div class="label">Total Tests</div>
+                </div>
+                <div class="summary-card passed">
+                    <div class="number" id="passedTests">0</div>
+                    <div class="label">Passed</div>
+                </div>
+                <div class="summary-card failed">
+                    <div class="number" id="failedTests">0</div>
+                    <div class="label">Failed</div>
+                </div>
+                <div class="summary-card info">
+                    <div class="number" id="infoTests">0</div>
+                    <div class="label">Info</div>
+                </div>
+            </div>
+            <div style="text-align: center; font-size: 1.5em; font-weight: bold; color: #333;">
+                Success Rate: <span id="successRate">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mock language toggle for testing -->
+    <div class="language-toggle" role="group" aria-label="Language selection">
+        <button class="lang-btn active" data-lang="en" aria-pressed="true" tabindex="0">EN</button>
+        <button class="lang-btn" data-lang="ta" aria-pressed="false" tabindex="0">தமிழ்</button>
+    </div>
+
+    <!-- Screen reader status announcements -->
+    <div id="lang-status" class="sr-only" aria-live="polite"></div>
+
+    <!-- Mock content for testing -->
+    <div style="display: none;">
+        <h1 data-lang-key="pageHeader">About Sri Kaliyuga Ranganathar Temple</h1>
+        <h2 data-lang-key="sectionTitle">Divine History</h2>
+        <p data-lang-key="historyContent">Temple history content goes here...</p>
+        <span data-lang-key="breadcrumb.home">Home</span>
+        <span data-lang-key="breadcrumb.about">About Us</span>
+        <img data-lang-key="imageAlt" alt="Temple image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+    </div>
+
+    <!-- Load LanguageManager -->
+    <script src="/js/language-manager.js"></script>
+
+    <!-- Load all test suites -->
+    <script src="/js/tests/language-manager-unit-tests.js"></script>
+    <script src="/js/tests/language-integration-tests.js"></script>
+    <script src="/js/tests/cross-browser-compatibility-tests.js"></script>
+    <script src="/js/tests/storage-fallback-tests.js"></script>
+    <script src="/js/tests/content-accuracy-tests.js"></script>
+    <script src="/js/tests/accessibility-compliance-tests.js"></script>
+    <script src="/js/tests/performance-error-handling-tests.js"></script>
+
+    <!-- Test Runner Script -->
+    <script>
+        class ComprehensiveTestRunner {
+            constructor() {
+                this.testSuites = [
+                    {
+                        name: 'Unit Tests',
+                        icon: '🧪',
+                        class: LanguageManagerUnitTests,
+                        description: 'Core LanguageManager functionality'
+                    },
+                    {
+                        name: 'Integration Tests',
+                        icon: '🔗',
+                        class: LanguageIntegrationTests,
+                        description: 'Full language switching workflow'
+                    },
+                    {
+                        name: 'Cross-Browser Tests',
+                        icon: '🌐',
+                        class: CrossBrowserCompatibilityTests,
+                        description: 'Browser compatibility validation'
+                    },
+                    {
+                        name: 'Storage Fallback Tests',
+                        icon: '💾',
+                        class: StorageFallbackTests,
+                        description: 'Storage mechanisms and fallbacks'
+                    },
+                    {
+                        name: 'Content Accuracy Tests',
+                        icon: '📝',
+                        class: ContentAccuracyTests,
+                        description: 'Content accuracy and layout preservation'
+                    },
+                    {
+                        name: 'Accessibility Tests',
+                        icon: '♿',
+                        class: AccessibilityComplianceTests,
+                        description: 'WCAG 2.1 AA compliance'
+                    }
+                ];
+
+                this.results = {};
+                this.totalTests = 0;
+                this.passedTests = 0;
+                this.failedTests = 0;
+                this.infoTests = 0;
+
+                this.init();
+            }
+
+            init() {
+                this.renderTestSuites();
+                this.attachEventListeners();
+            }
+
+            renderTestSuites() {
+                const container = document.getElementById('testSuites');
+                container.innerHTML = '';
+
+                this.testSuites.forEach((suite, index) => {
+                    const suiteElement = document.createElement('div');
+                    suiteElement.className = 'test-suite';
+                    suiteElement.id = `suite-${index}`;
+                    suiteElement.innerHTML = `
+                        <h3>
+                            <span class="icon">${suite.icon}</span>
+                            ${suite.name}
+                        </h3>
+                        <p style="color: #666; margin-bottom: 15px;">${suite.description}</p>
+                        <div class="status pending">Pending</div>
+                        <div class="test-results" id="results-${index}"></div>
+                    `;
+                    container.appendChild(suiteElement);
+                });
+            }
+
+            attachEventListeners() {
+                document.getElementById('runAllBtn').addEventListener('click', () => this.runAllTests());
+                document.getElementById('clearBtn').addEventListener('click', () => this.clearResults());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportResults());
+            }
+
+            async runAllTests() {
+                const runBtn = document.getElementById('runAllBtn');
+                runBtn.disabled = true;
+                runBtn.innerHTML = '<span class="loading"></span> Running Tests...';
+
+                document.getElementById('progressContainer').classList.remove('hidden');
+                this.resetResults();
+
+                for (let i = 0; i < this.testSuites.length; i++) {
+                    await this.runTestSuite(i);
+                    this.updateProgress((i + 1) / this.testSuites.length * 100);
+                }
+
+                this.displaySummary();
+                runBtn.disabled = false;
+                runBtn.innerHTML = '▶️ Run All Tests';
+            }
+
+            async runTestSuite(index) {
+                const suite = this.testSuites[index];
+                const statusElement = document.querySelector(`#suite-${index} .status`);
+                const resultsElement = document.getElementById(`results-${index}`);
+
+                statusElement.className = 'status running';
+                statusElement.textContent = 'Running...';
+
+                try {
+                    const testInstance = new suite.class();
+                    await testInstance.runAllTests();
+
+                    const results = testInstance.displayResults();
+                    this.results[suite.name] = results;
+
+                    this.totalTests += results.total;
+                    this.passedTests += results.passed;
+                    this.failedTests += results.failed;
+                    this.infoTests += results.info || 0;
+
+                    statusElement.className = results.failed > 0 ? 'status failed' : 'status passed';
+                    statusElement.textContent = results.failed > 0 ? 'Failed' : 'Passed';
+
+                    this.displayTestResults(resultsElement, testInstance.testResults);
+
+                } catch (error) {
+                    console.error(`Error running ${suite.name}:`, error);
+                    statusElement.className = 'status failed';
+                    statusElement.textContent = 'Error';
+                    resultsElement.innerHTML = `<div class="result-item fail">❌ Error: ${error.message}</div>`;
+                }
+            }
+
+            displayTestResults(container, results) {
+                container.innerHTML = '';
+                
+                results.forEach(result => {
+                    const resultElement = document.createElement('div');
+                    resultElement.className = `result-item ${result.status.toLowerCase()}`;
+                    
+                    const icon = result.status === 'PASS' ? '✅' : 
+                               result.status === 'FAIL' ? '❌' : 'ℹ️';
+                    
+                    resultElement.innerHTML = `
+                        <span>${icon}</span>
+                        <span><strong>${result.test}:</strong> ${result.message}</span>
+                    `;
+                    
+                    container.appendChild(resultElement);
+                });
+            }
+
+            updateProgress(percentage) {
+                const progressFill = document.getElementById('progressFill');
+                progressFill.style.width = `${percentage}%`;
+                progressFill.textContent = `${Math.round(percentage)}%`;
+            }
+
+            displaySummary() {
+                const summary = document.getElementById('summary');
+                summary.classList.remove('hidden');
+
+                document.getElementById('totalTests').textContent = this.totalTests;
+                document.getElementById('passedTests').textContent = this.passedTests;
+                document.getElementById('failedTests').textContent = this.failedTests;
+                document.getElementById('infoTests').textContent = this.infoTests;
+
+                const successRate = ((this.passedTests / (this.totalTests - this.infoTests)) * 100).toFixed(1);
+                document.getElementById('successRate').textContent = `${successRate}%`;
+            }
+
+            resetResults() {
+                this.results = {};
+                this.totalTests = 0;
+                this.passedTests = 0;
+                this.failedTests = 0;
+                this.infoTests = 0;
+                document.getElementById('summary').classList.add('hidden');
+            }
+
+            clearResults() {
+                this.resetResults();
+                this.renderTestSuites();
+                document.getElementById('progressContainer').classList.add('hidden');
+            }
+
+            exportResults() {
+                const exportData = {
+                    timestamp: new Date().toISOString(),
+                    summary: {
+                        total: this.totalTests,
+                        passed: this.passedTests,
+                        failed: this.failedTests,
+                        info: this.infoTests,
+                        successRate: ((this.passedTests / (this.totalTests - this.infoTests)) * 100).toFixed(1)
+                    },
+                    results: this.results
+                };
+
+                const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `test-results-${Date.now()}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+        }
+
+        // Initialize test runner when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new ComprehensiveTestRunner();
+        });
+    </script>
+</body>
+</html>
