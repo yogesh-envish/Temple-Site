@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, observerOptions);
 
     // Observe elements for animation
-    document.querySelectorAll('.timing-card, .service-card, .seva-card, .event-card, .contact-card').forEach(el => {
+    document.querySelectorAll('.timing-card, .service-card, .event-card, .contact-card').forEach(el => {
         observer.observe(el);
     });
 
