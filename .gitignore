@@ -88,3 +88,6 @@ responsive-design-test-report.md
 keyboard-navigation-test.html
 manual-cross-browser-checklist.md
 SETUP_INSTRUCTIONS.md
+
+# Test project
+TempleWebsite.Tests/
