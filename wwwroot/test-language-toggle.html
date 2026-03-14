@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Language Toggle Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/site.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark temple-nav">
+            <div class="container">
+                <a class="navbar-brand temple-logo" href="/">
+                    <span>Sri Kaliyuga Ranganathar Temple</span>
+                </a>
+                <div class="navbar-nav ms-auto">
+                    <!-- Language Toggle Component -->
+                    <div class="language-toggle ms-3">
+                        <button class="lang-btn active" data-lang="en" aria-label="Switch to English" title="English">
+                            <span class="flag-icon">🇺🇸</span>
+                            <span class="lang-text">EN</span>
+                        </button>
+                        <button class="lang-btn" data-lang="ta" aria-label="Switch to Tamil" title="Tamil">
+                            <span class="flag-icon">🇮🇳</span>
+                            <span class="lang-text">தமிழ்</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main">
+        <!-- Language Error Display -->
+        <div class="language-error alert alert-danger" style="display: none; margin: 1rem;" role="alert"></div>
+        
+        <div class="page-header">
+            <div class="container">
+                <h1 data-lang-key="pageHeader">About Sri Kaliyuga Ranganathar Temple</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/" data-lang-key="breadcrumb.home">Home</a></li>
+                        <li class="breadcrumb-item active" data-lang-key="breadcrumb.about">About Us</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <section class="history-section py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <img src="/images/temple-facade.jpg.jpeg" 
+                             alt="Front view of Sri Adisesha Thiruthalam, Kaliyuga Ranganathar Temple showing the temple facade with traditional South Indian architecture and sacred entrance" 
+                             class="img-fluid rounded shadow temple-image"
+                             data-lang-key="imageAlt"
+                             role="img">
+                    </div>
+                    <div class="col-lg-6">
+                        <h2 class="section-title mb-4" data-lang-key="sectionTitle">Divine History</h2>
+                        <div class="history-content divine-text" role="article" aria-label="Temple Divine History">
+                            <p data-lang-key="historyContent">Hari Om Namo Narayanaya Namaha. Our Sri Adisesha Thiruthalam, Kaliyuga Ranganathar Temple, is a holy place located in Nagalur village under Athani in the Erode district's Anthiyur division. In 2008, on a piece of farmland I purchased, the supreme power Sri Mahashakti Ambikai appeared to me in the form of a Linga and, after leaving from Tirupati, manifested herself to descend into the well located in this farmland. Following that, a divine event occurred in my own body as well. She declared, 'I have ingested the five elements at the mouth and conceived them in the stomach, and I stand here.' Till now, all 14 kumbhabhishekams have been performed only on Amavasya (new moon) days, without altering the date or consulting the Panchangam (Hindu calendar/almanac). When Sri Mahashakti Ambikai appeared to me, she said that the Kaliyugam will end in 2088. She also declared that a 12-tier Rajagopuram (temple tower) would rise at this place. Lord Perumal himself will build his own temple here. When Pralaya (cosmic dissolution) occurs, Bhagavan himself will incarnate, ingest the five elements at the mouth and conceive them in the stomach, and at the end of the Pralaya, He will expel them from His mouth.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Test Section for Language Persistence -->
+        <section class="test-section py-4 bg-light">
+            <div class="container">
+                <h3>Language Persistence Test</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Current State:</h5>
+                        <div id="current-state" class="mb-3">
+                            <p><strong>Current Language:</strong> <span id="current-lang">Loading...</span></p>
+                            <p><strong>Stored Preference:</strong> <span id="stored-pref">Loading...</span></p>
+                            <p><strong>Storage Available:</strong> <span id="storage-status">Loading...</span></p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Test Actions:</h5>
+                        <button class="btn btn-primary btn-sm me-2" onclick="refreshState()">Refresh State</button>
+                        <button class="btn btn-warning btn-sm me-2" onclick="clearState()">Clear All State</button>
+                        <button class="btn btn-info btn-sm" onclick="simulateNavigation()">Simulate Navigation</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/language-manager.js"></script>
+    
+    <script>
+        // Test functions for language persistence
+        function refreshState() {
+            if (window.languageManager) {
+                const state = window.languageManager.getLanguageState();
+                document.getElementById('current-lang').textContent = state.currentLanguage;
+                document.getElementById('stored-pref').textContent = state.storedPreference || 'None';
+                document.getElementById('storage-status').textContent = 
+                    `localStorage: ${state.isStorageAvailable.localStorage}, sessionStorage: ${state.isStorageAvailable.sessionStorage}`;
+            }
+        }
+
+        function clearState() {
+            if (window.languageManager) {
+                window.languageManager.clearStoredState();
+                setTimeout(refreshState, 500);
+            }
+        }
+
+        function simulateNavigation() {
+            // Save current state and reload page to test persistence
+            if (window.languageManager) {
+                window.languageManager.saveCurrentState();
+                alert('State saved. The page will reload to test persistence.');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            }
+        }
+
+        // Auto-refresh state when language manager is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                if (window.languageManager) {
+                    refreshState();
+                    // Set up periodic refresh
+                    setInterval(refreshState, 5000);
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

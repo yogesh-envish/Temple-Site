@@ -26,6 +26,464 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
 }
 
+/* Language Toggle Styles */
+.language-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    padding: 0.25rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+}
+
+/* Language Toggle in Page Header */
+.page-header .language-toggle {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    flex-shrink: 0;
+}
+
+/* Loading State for Language Toggle */
+.language-toggle.loading {
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.loading-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 10;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error Message Styles */
+.language-error {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+    animation: slideInDown 0.3s ease-out;
+}
+
+/* Network Status Indicator */
+.network-status {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    display: none;
+    animation: slideInDown 0.3s ease-out;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.network-status.slow {
+    background: #ff9800;
+    color: white;
+    border-left: 4px solid #f57c00;
+}
+
+.network-status.moderate {
+    background: #ffc107;
+    color: #333;
+    border-left: 4px solid #ffa000;
+}
+
+.network-status.offline {
+    background: #f44336;
+    color: white;
+    border-left: 4px solid #d32f2f;
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Performance Optimized Transitions */
+.main-content,
+.container {
+    will-change: opacity, transform;
+}
+
+/* Optimized fade transitions */
+.fade-transition {
+    transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+}
+
+/* Disabled state for language buttons during loading */
+.lang-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.lang-btn[aria-busy="true"] {
+    position: relative;
+}
+
+.lang-btn[aria-busy="true"]::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    margin: -6px 0 0 -6px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-top: 1px solid white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+/* Network status indicators */
+.network-status {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    z-index: 1000;
+    animation: slideInRight 0.3s ease-out;
+}
+
+.network-status.offline {
+    background: #dc3545;
+    color: white;
+}
+
+.network-status.online {
+    background: #28a745;
+    color: white;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Graceful degradation styles for older browsers */
+.no-js .language-toggle {
+    display: none;
+}
+
+.no-fetch .language-error {
+    display: block !important;
+}
+
+/* High contrast mode enhancements */
+@media (prefers-contrast: high) {
+    .language-error {
+        border: 2px solid white;
+    }
+    
+    .loading-indicator .spinner {
+        border-color: white;
+        border-top-color: transparent;
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .spinner,
+    .lang-btn[aria-busy="true"]::after {
+        animation: none;
+    }
+    
+    .language-error {
+        animation: none;
+    }
+    
+    .network-status {
+        animation: none;
+    }
+    
+    .fade-transition {
+        transition: none;
+    }
+}
+
+/* Mobile optimization for performance */
+@media (max-width: 768px) {
+    .language-toggle.loading {
+        transform: scale(0.95);
+    }
+    
+    .loading-indicator .spinner {
+        width: 16px;
+        height: 16px;
+        border-width: 1.5px;
+    }
+    
+    .language-error {
+        font-size: 0.9rem;
+        padding: 0.75rem;
+    }
+    
+    .network-status {
+        font-size: 0.85rem;
+        padding: 0.6rem 0.8rem;
+    }
+    
+    /* Optimize transitions for mobile performance */
+    .fade-transition {
+        transition: opacity 0.15s ease-out;
+    }
+    
+    /* Reduce animation complexity on mobile */
+    .lang-btn {
+        transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .lang-btn {
+        min-height: 44px; /* Minimum touch target size */
+        min-width: 44px;
+    }
+    
+    .lang-btn:hover {
+        transform: none; /* Disable hover transforms on touch devices */
+    }
+}
+
+/* Print styles - hide interactive elements */
+@media print {
+    .language-toggle,
+    .language-error,
+    .loading-indicator,
+    .network-status {
+        display: none !important;
+    }
+}
+
+.lang-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-width: 60px;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.lang-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+}
+
+.lang-btn.active {
+    background: white;
+    color: var(--temple-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.lang-btn.active:hover {
+    background: white;
+    color: var(--temple-primary);
+    transform: translateY(-1px);
+}
+
+.flag-icon {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.lang-text {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+/* Language Toggle Focus States for Accessibility */
+.lang-btn:focus {
+    outline: 4px solid var(--temple-secondary);
+    outline-offset: 3px;
+    background: rgba(212, 175, 55, 0.2) !important;
+    box-shadow: 0 0 0 2px var(--temple-primary), 0 0 15px rgba(212, 175, 55, 0.5);
+    transform: scale(1.05);
+}
+
+.lang-btn:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+    background: transparent;
+    transform: none;
+}
+
+.lang-btn:focus-visible {
+    outline: 4px solid var(--temple-secondary);
+    outline-offset: 3px;
+    background: rgba(212, 175, 55, 0.2) !important;
+    box-shadow: 0 0 0 2px var(--temple-primary), 0 0 15px rgba(212, 175, 55, 0.5);
+    transform: scale(1.05);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .lang-btn {
+        border: 2px solid currentColor;
+    }
+    
+    .lang-btn:focus,
+    .lang-btn:focus-visible {
+        outline: 4px solid;
+        outline-offset: 2px;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .lang-btn {
+        transition: none;
+    }
+    
+    .lang-btn::before {
+        display: none;
+    }
+    
+    .lang-btn:hover {
+        transform: none;
+    }
+}
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* Skip link for keyboard navigation */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--temple-primary);
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 1000;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 6px;
+}
+
+/* Language Toggle Animation */
+.lang-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.lang-btn:hover::before {
+    left: 100%;
+}
+
+.lang-btn.active::before {
+    display: none;
+}
+
+/* Responsive Design for Language Toggle */
+@media (max-width: 991px) {
+    .page-header .d-flex {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .page-header .language-toggle {
+        margin-top: 1rem;
+        order: 2;
+    }
+    
+    .page-header h1 {
+        order: 1;
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .language-toggle {
+        gap: 0.125rem;
+        padding: 0.125rem;
+    }
+    
+    .lang-btn {
+        padding: 0.375rem 0.5rem;
+        min-width: 50px;
+        gap: 0.25rem;
+    }
+    
+    .flag-icon {
+        font-size: 0.875rem;
+    }
+    
+    .lang-text {
+        font-size: 0.75rem;
+    }
+}
+
 /* Navigation Styles */
 .temple-nav {
     background: var(--temple-gradient);
@@ -259,92 +717,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 1.5rem;
 }
 
-/* Seva Cards */
-.seva-card {
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-    height: 100%;
-    border: 2px solid transparent;
-}
-
-.seva-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--temple-primary);
-}
-
-.seva-card.featured {
-    border: 2px solid var(--temple-secondary);
-    position: relative;
-}
-
-.seva-card.featured::before {
-    content: 'POPULAR';
-    position: absolute;
-    top: 10px;
-    right: -25px;
-    background: var(--temple-secondary);
-    color: white;
-    padding: 5px 30px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    transform: rotate(45deg);
-    z-index: 1;
-}
-
-.seva-header {
-    background: var(--temple-gradient);
-    color: white;
-    padding: 1.5rem;
-    text-align: center;
-    position: relative;
-}
-
-.seva-icon {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
-
-.seva-price {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(255,255,255,0.2);
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-weight: bold;
-}
-
-.seva-content {
-    padding: 1.5rem;
-}
-
-.seva-benefits {
-    list-style: none;
-    margin: 1rem 0;
-}
-
-.seva-benefits li {
-    padding: 0.25rem 0;
-    position: relative;
-    padding-left: 1.5rem;
-}
-
-.seva-benefits li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: var(--temple-primary);
-    font-weight: bold;
-}
-
-.seva-timing {
-    color: var(--temple-accent);
-    font-weight: 500;
-    margin-top: 1rem;
-}
 
 /* Page Header */
 .page-header {
@@ -533,7 +905,7 @@ h1, h2, h3, h4, h5, h6 {
         font-size: 1rem;
     }
     
-    .timing-card, .service-card, .seva-card {
+    .timing-card, .service-card {
         margin-bottom: 2rem;
     }
     

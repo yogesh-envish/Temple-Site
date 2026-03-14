@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Keyboard Navigation Test - Language Toggle</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="wwwroot/css/site.css" />
+    <style>
+        body { 
+            padding: 2rem; 
+            background: linear-gradient(135deg, #FF6B35, #D4AF37);
+            min-height: 100vh;
+        }
+        .test-container { 
+            background: white; 
+            padding: 2rem; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .demo-header {
+            background: linear-gradient(135deg, #FF6B35, #D4AF37);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        .instruction-box {
+            background: #f8f9fa;
+            border-left: 4px solid #FF6B35;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .focus-demo {
+            border: 2px dashed #ccc;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        .status-display {
+            background: #e9ecef;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="test-container">
+            <h1>🎹 Keyboard Navigation Test</h1>
+            <p class="lead">Test the improved keyboard accessibility for the language toggle component.</p>
+            
+            <div class="demo-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>Sri Kaliyuga Ranganathar Temple</h2>
+                    <!-- Language Toggle Component -->
+                    <div class="language-toggle" role="group" aria-label="Language selection">
+                        <button class="lang-btn active" 
+                                data-lang="en" 
+                                role="button"
+                                aria-pressed="true"
+                                aria-label="English language (current selection)" 
+                                aria-describedby="lang-status"
+                                title="English (current)"
+                                tabindex="0">
+                            <span class="flag-icon" aria-hidden="true">🇺🇸</span>
+                            <span class="lang-text">EN</span>
+                        </button>
+                        <button class="lang-btn" 
+                                data-lang="ta" 
+                                role="button"
+                                aria-pressed="false"
+                                aria-label="Tamil language" 
+                                aria-describedby="lang-status"
+                                title="Switch to Tamil"
+                                tabindex="0">
+                            <span class="flag-icon" aria-hidden="true">🇮🇳</span>
+                            <span class="lang-text">தமிழ்</span>
+                        </button>
+                        <!-- Screen reader status announcement -->
+                        <div id="lang-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="instruction-box">
+                <h3>🎯 Testing Instructions</h3>
+                <ol>
+                    <li><strong>Tab Navigation:</strong> Press Tab to move focus between language buttons</li>
+                    <li><strong>Visual Focus:</strong> Notice the bright golden outline and background highlight</li>
+                    <li><strong>Activation:</strong> Press Enter or Space to switch languages</li>
+                    <li><strong>Screen Reader:</strong> Listen for announcements (if using screen reader)</li>
+                </ol>
+            </div>
+
+            <div class="focus-demo">
+                <h4>🔍 Focus Visibility Test</h4>
+                <p>The focused button should have:</p>
+                <ul>
+                    <li>✨ Bright golden outline (4px solid)</li>
+                    <li>🌟 Golden background highlight</li>
+                    <li>📏 Slight scale increase (1.05x)</li>
+                    <li>💫 Glowing shadow effect</li>
+                </ul>
+            </div>
+
+            <div class="status-display">
+                <h4>📊 Current Status</h4>
+                <div id="status-info">
+                    <div>Current Language: <span id="current-lang">English</span></div>
+                    <div>Focused Element: <span id="focused-element">None</span></div>
+                    <div>Last Action: <span id="last-action">Page loaded</span></div>
+                </div>
+            </div>
+
+            <div class="instruction-box">
+                <h4>⌨️ Keyboard Navigation Flow</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Expected Behavior:</h5>
+                        <ol>
+                            <li>English button highlighted by default</li>
+                            <li>Tab → Focus moves to Tamil button</li>
+                            <li>Tab → Focus moves to next page element</li>
+                            <li>Shift+Tab → Focus moves backward</li>
+                        </ol>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Activation:</h5>
+                        <ul>
+                            <li>Enter key → Switch language</li>
+                            <li>Space key → Switch language</li>
+                            <li>Click → Switch language</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary mt-3" onclick="runFocusTest()">🧪 Run Focus Test</button>
+            <button class="btn btn-secondary mt-3" onclick="resetTest()">🔄 Reset Test</button>
+        </div>
+    </div>
+
+    <script src="wwwroot/js/language-manager.js"></script>
+    <script>
+        // Status tracking
+        function updateStatus() {
+            const currentLang = document.querySelector('.lang-btn.active')?.getAttribute('data-lang') === 'en' ? 'English' : 'Tamil';
+            const focusedElement = document.activeElement?.classList.contains('lang-btn') ? 
+                `${document.activeElement.getAttribute('data-lang').toUpperCase()} Button` : 
+                document.activeElement?.tagName || 'None';
+            
+            document.getElementById('current-lang').textContent = currentLang;
+            document.getElementById('focused-element').textContent = focusedElement;
+        }
+
+        // Track focus changes
+        document.addEventListener('focusin', (e) => {
+            updateStatus();
+            if (e.target.classList.contains('lang-btn')) {
+                document.getElementById('last-action').textContent = `Focused ${e.target.getAttribute('data-lang').toUpperCase()} button`;
+            }
+        });
+
+        // Track language changes
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('lang-btn')) {
+                setTimeout(() => {
+                    updateStatus();
+                    document.getElementById('last-action').textContent = `Switched to ${e.target.getAttribute('data-lang') === 'en' ? 'English' : 'Tamil'}`;
+                }, 100);
+            }
+        });
+
+        // Focus test function
+        function runFocusTest() {
+            const buttons = document.querySelectorAll('.lang-btn');
+            let currentIndex = 0;
+            
+            function focusNext() {
+                if (currentIndex < buttons.length) {
+                    buttons[currentIndex].focus();
+                    document.getElementById('last-action').textContent = `Test: Focused ${buttons[currentIndex].getAttribute('data-lang').toUpperCase()} button`;
+                    currentIndex++;
+                    setTimeout(focusNext, 2000);
+                } else {
+                    document.getElementById('last-action').textContent = 'Focus test completed';
+                }
+            }
+            
+            document.getElementById('last-action').textContent = 'Starting focus test...';
+            setTimeout(focusNext, 500);
+        }
+
+        // Reset test
+        function resetTest() {
+            document.querySelector('.lang-btn[data-lang="en"]').click();
+            document.getElementById('last-action').textContent = 'Test reset to English';
+            updateStatus();
+        }
+
+        // Initial status update
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(updateStatus, 1000);
+        });
+
+        // Keyboard event logging
+        document.addEventListener('keydown', (e) => {
+            if (document.activeElement?.classList.contains('lang-btn')) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    document.getElementById('last-action').textContent = `Pressed ${e.key} on ${document.activeElement.getAttribute('data-lang').toUpperCase()} button`;
+                } else if (e.key === 'Tab') {
+                    document.getElementById('last-action').textContent = `Tab navigation ${e.shiftKey ? '(backward)' : '(forward)'}`;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

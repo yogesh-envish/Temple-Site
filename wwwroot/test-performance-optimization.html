@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Manager Performance Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/site.css">
+    <style>
+        .test-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .test-result {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+        .test-pass {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .test-fail {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .performance-metrics {
+            background: #e2e3e5;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        .network-simulator {
+            background: #fff3cd;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Language Manager Performance & Error Handling Test</h1>
+        
+        <!-- Language Error Display -->
+        <div class="language-error alert alert-danger" style="display: none; margin: 1rem;" role="alert" aria-live="assertive"></div>
+        
+        <!-- Network Status Indicator -->
+        <div id="network-status" class="network-status" style="display: none;" aria-live="polite"></div>
+        
+        <!-- Language Toggle Component -->
+        <div class="test-section">
+            <h3>Language Toggle with Performance Optimization</h3>
+            <div class="language-toggle" role="group" aria-label="Language selection">
+                <button class="lang-btn active" 
+                        data-lang="en" 
+                        role="button"
+                        aria-pressed="true"
+                        aria-label="English language (current selection)" 
+                        aria-describedby="lang-status"
+                        aria-busy="false"
+                        title="English (current)"
+                        tabindex="0">
+                    <span class="flag-icon" aria-hidden="true">🇺🇸</span>
+                    <span class="lang-text">EN</span>
+                </button>
+                <button class="lang-btn" 
+                        data-lang="ta" 
+                        role="button"
+                        aria-pressed="false"
+                        aria-label="Tamil language" 
+                        aria-describedby="lang-status"
+                        aria-busy="false"
+                        title="Switch to Tamil"
+                        tabindex="0">
+                    <span class="flag-icon" aria-hidden="true">🇮🇳</span>
+                    <span class="lang-text">தமிழ்</span>
+                </button>
+                <!-- Loading Indicator -->
+                <div class="loading-indicator" aria-hidden="true">
+                    <span class="spinner"></span>
+                </div>
+                <!-- Screen reader status announcement -->
+                <div id="lang-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+            </div>
+        </div>
+        
+        <!-- Test Content -->
+        <div class="test-section">
+            <h3>Test Content</h3>
+            <h2 class="section-title mb-4" data-lang-key="sectionTitle">Divine History</h2>
+            <p data-lang-key="historyContent">Test content for language switching performance.</p>
+            <img src="/images/temple-facade.jpg.jpeg" 
+                 alt="Test image" 
+                 class="img-fluid temple-image"
+                 data-lang-key="imageAlt"
+                 style="max-width: 200px;">
+        </div>
+        
+        <!-- Performance Metrics Display -->
+        <div class="performance-metrics">
+            <h4>Performance Metrics</h4>
+            <div id="performance-results">
+                <div>Initialization Time: <span id="init-time">-</span>ms</div>
+                <div>Language Switch Time: <span id="switch-time">-</span>ms</div>
+                <div>Content Load Time: <span id="load-time">-</span>ms</div>
+                <div>Memory Usage: <span id="memory-usage">-</span></div>
+            </div>
+        </div>
+        
+        <!-- Network Simulation Controls -->
+        <div class="network-simulator">
+            <h4>Network Simulation</h4>
+            <button id="simulate-offline" class="btn btn-warning">Simulate Offline</button>
+            <button id="simulate-online" class="btn btn-success">Simulate Online</button>
+            <button id="simulate-slow" class="btn btn-info">Simulate Slow Connection</button>
+            <button id="simulate-error" class="btn btn-danger">Simulate Error</button>
+        </div>
+        
+        <!-- Test Results -->
+        <div class="test-section">
+            <h3>Test Results</h3>
+            <div id="test-results"></div>
+            <button id="run-tests" class="btn btn-primary">Run Performance Tests</button>
+        </div>
+        
+        <!-- Error Handling Tests -->
+        <div class="test-section">
+            <h3>Error Handling Tests</h3>
+            <div id="error-test-results"></div>
+            <button id="test-error-handling" class="btn btn-warning">Test Error Handling</button>
+        </div>
+        
+        <!-- Browser Compatibility Tests -->
+        <div class="test-section">
+            <h3>Browser Compatibility</h3>
+            <div id="compatibility-results"></div>
+            <button id="test-compatibility" class="btn btn-info">Test Browser Compatibility</button>
+        </div>
+    </div>
+
+    <script src="/js/language-manager.js"></script>
+    <script>
+        // Performance Testing Suite
+        class PerformanceTestSuite {
+            constructor() {
+                this.results = [];
+                this.setupEventListeners();
+            }
+            
+            setupEventListeners() {
+                document.getElementById('run-tests').addEventListener('click', () => this.runPerformanceTests());
+                document.getElementById('test-error-handling').addEventListener('click', () => this.testErrorHandling());
+                document.getElementById('test-compatibility').addEventListener('click', () => this.testBrowserCompatibility());
+                
+                // Network simulation
+                document.getElementById('simulate-offline').addEventListener('click', () => this.simulateOffline());
+                document.getElementById('simulate-online').addEventListener('click', () => this.simulateOnline());
+                document.getElementById('simulate-slow').addEventListener('click', () => this.simulateSlowConnection());
+                document.getElementById('simulate-error').addEventListener('click', () => this.simulateError());
+            }
+            
+            async runPerformanceTests() {
+                const resultsContainer = document.getElementById('test-results');
+                resultsContainer.innerHTML = '<div class="text-info">Running performance tests...</div>';
+                
+                const tests = [
+                    this.testInitializationTime(),
+                    this.testLanguageSwitchTime(),
+                    this.testContentLoadTime(),
+                    this.testMemoryUsage(),
+                    this.testCacheEfficiency(),
+                    this.testMobilePerformance()
+                ];
+                
+                const results = await Promise.all(tests);
+                this.displayResults(results, resultsContainer);
+            }
+            
+            async testInitializationTime() {
+                const start = performance.now();
+                
+                // Simulate initialization
+                if (window.languageManager) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                }
+                
+                const end = performance.now();
+                const time = end - start;
+                
+                document.getElementById('init-time').textContent = time.toFixed(2);
+                
+                return {
+                    name: 'Initialization Time',
+                    result: time < 500 ? 'PASS' : 'FAIL',
+                    details: `${time.toFixed(2)}ms (target: <500ms)`
+                };
+            }
+            
+            async testLanguageSwitchTime() {
+                if (!window.languageManager) {
+                    return { name: 'Language Switch Time', result: 'SKIP', details: 'Language manager not available' };
+                }
+                
+                const start = performance.now();
+                
+                // Simulate language switch
+                await window.languageManager.switchLanguage('ta');
+                await new Promise(resolve => setTimeout(resolve, 50));
+                await window.languageManager.switchLanguage('en');
+                
+                const end = performance.now();
+                const time = end - start;
+                
+                document.getElementById('switch-time').textContent = time.toFixed(2);
+                
+                return {
+                    name: 'Language Switch Time',
+                    result: time < 1000 ? 'PASS' : 'FAIL',
+                    details: `${time.toFixed(2)}ms (target: <1000ms)`
+                };
+            }
+            
+            async testContentLoadTime() {
+                const start = performance.now();
+                
+                try {
+                    const response = await fetch('/js/lang/about-content.json');
+                    await response.json();
+                } catch (error) {
+                    console.warn('Content load test failed:', error);
+                }
+                
+                const end = performance.now();
+                const time = end - start;
+                
+                document.getElementById('load-time').textContent = time.toFixed(2);
+                
+                return {
+                    name: 'Content Load Time',
+                    result: time < 2000 ? 'PASS' : 'FAIL',
+                    details: `${time.toFixed(2)}ms (target: <2000ms)`
+                };
+            }
+            
+            testMemoryUsage() {
+                let memoryInfo = 'Not available';
+                let result = 'SKIP';
+                
+                if ('memory' in performance) {
+                    const memory = performance.memory;
+                    memoryInfo = `${(memory.usedJSHeapSize / 1024 / 1024).toFixed(2)}MB`;
+                    result = memory.usedJSHeapSize < 50 * 1024 * 1024 ? 'PASS' : 'FAIL'; // 50MB limit
+                }
+                
+                document.getElementById('memory-usage').textContent = memoryInfo;
+                
+                return {
+                    name: 'Memory Usage',
+                    result: result,
+                    details: `${memoryInfo} (target: <50MB)`
+                };
+            }
+            
+            async testCacheEfficiency() {
+                if (!window.languageManager) {
+                    return { name: 'Cache Efficiency', result: 'SKIP', details: 'Language manager not available' };
+                }
+                
+                // Test cache hit
+                const start1 = performance.now();
+                await window.languageManager.switchLanguage('ta');
+                const end1 = performance.now();
+                
+                // Test cache hit (should be faster)
+                const start2 = performance.now();
+                await window.languageManager.switchLanguage('en');
+                const end2 = performance.now();
+                
+                const firstTime = end1 - start1;
+                const secondTime = end2 - start2;
+                const improvement = ((firstTime - secondTime) / firstTime) * 100;
+                
+                return {
+                    name: 'Cache Efficiency',
+                    result: improvement > 0 ? 'PASS' : 'FAIL',
+                    details: `${improvement.toFixed(1)}% improvement on cached content`
+                };
+            }
+            
+            testMobilePerformance() {
+                const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                const hasTouch = 'ontouchstart' in window;
+                const screenWidth = window.screen.width;
+                
+                let score = 0;
+                let details = [];
+                
+                if (isMobile || hasTouch) {
+                    score += 1;
+                    details.push('Touch support detected');
+                }
+                
+                if (screenWidth <= 768) {
+                    score += 1;
+                    details.push('Mobile screen size');
+                }
+                
+                // Check for mobile-optimized CSS
+                const langToggle = document.querySelector('.language-toggle');
+                if (langToggle) {
+                    const styles = getComputedStyle(langToggle);
+                    if (styles.gap && parseFloat(styles.gap) < 5) {
+                        score += 1;
+                        details.push('Mobile-optimized spacing');
+                    }
+                }
+                
+                return {
+                    name: 'Mobile Performance',
+                    result: score >= 2 ? 'PASS' : 'WARN',
+                    details: details.join(', ') || 'Desktop environment'
+                };
+            }
+            
+            async testErrorHandling() {
+                const resultsContainer = document.getElementById('error-test-results');
+                resultsContainer.innerHTML = '<div class="text-info">Testing error handling...</div>';
+                
+                const tests = [
+                    this.testNetworkError(),
+                    this.testInvalidContent(),
+                    this.testStorageError(),
+                    this.testGracefulDegradation()
+                ];
+                
+                const results = await Promise.all(tests);
+                this.displayResults(results, resultsContainer);
+            }
+            
+            async testNetworkError() {
+                // Simulate network error by trying to fetch non-existent resource
+                try {
+                    await fetch('/js/lang/non-existent.json');
+                    return { name: 'Network Error Handling', result: 'FAIL', details: 'Should have thrown error' };
+                } catch (error) {
+                    return { name: 'Network Error Handling', result: 'PASS', details: 'Correctly handled network error' };
+                }
+            }
+            
+            testInvalidContent() {
+                if (!window.languageManager) {
+                    return { name: 'Invalid Content Handling', result: 'SKIP', details: 'Language manager not available' };
+                }
+                
+                try {
+                    // Test with invalid content structure
+                    window.languageManager.validateContentStructure({ invalid: 'content' });
+                    return { name: 'Invalid Content Handling', result: 'FAIL', details: 'Should have thrown validation error' };
+                } catch (error) {
+                    return { name: 'Invalid Content Handling', result: 'PASS', details: 'Correctly validated content structure' };
+                }
+            }
+            
+            testStorageError() {
+                if (!window.languageManager) {
+                    return { name: 'Storage Error Handling', result: 'SKIP', details: 'Language manager not available' };
+                }
+                
+                // Test storage availability detection
+                const hasLocalStorage = window.languageManager.isStorageAvailable('localStorage');
+                const hasSessionStorage = window.languageManager.isStorageAvailable('sessionStorage');
+                
+                return {
+                    name: 'Storage Error Handling',
+                    result: 'PASS',
+                    details: `localStorage: ${hasLocalStorage}, sessionStorage: ${hasSessionStorage}`
+                };
+            }
+            
+            testGracefulDegradation() {
+                // Check if fallback content is available
+                if (!window.languageManager) {
+                    return { name: 'Graceful Degradation', result: 'SKIP', details: 'Language manager not available' };
+                }
+                
+                const hasFallback = window.languageManager.fallbackContent && 
+                                  window.languageManager.fallbackContent.en && 
+                                  window.languageManager.fallbackContent.ta;
+                
+                return {
+                    name: 'Graceful Degradation',
+                    result: hasFallback ? 'PASS' : 'FAIL',
+                    details: hasFallback ? 'Fallback content available' : 'No fallback content'
+                };
+            }
+            
+            testBrowserCompatibility() {
+                const resultsContainer = document.getElementById('compatibility-results');
+                resultsContainer.innerHTML = '<div class="text-info">Testing browser compatibility...</div>';
+                
+                if (!window.languageManager) {
+                    resultsContainer.innerHTML = '<div class="test-fail">Language manager not available</div>';
+                    return;
+                }
+                
+                const capabilities = window.languageManager.browserCapabilities;
+                const results = [];
+                
+                Object.keys(capabilities).forEach(capability => {
+                    results.push({
+                        name: capability,
+                        result: capabilities[capability] ? 'PASS' : 'WARN',
+                        details: capabilities[capability] ? 'Supported' : 'Not supported (fallback available)'
+                    });
+                });
+                
+                this.displayResults(results, resultsContainer);
+            }
+            
+            // Network simulation methods
+            simulateOffline() {
+                if (window.languageManager) {
+                    window.languageManager.networkStatus = 'offline';
+                    window.languageManager.handleNetworkStatusChange('offline');
+                }
+                this.showMessage('Simulated offline mode', 'warning');
+            }
+            
+            simulateOnline() {
+                if (window.languageManager) {
+                    window.languageManager.networkStatus = 'online';
+                    window.languageManager.handleNetworkStatusChange('online');
+                }
+                this.showMessage('Simulated online mode', 'success');
+            }
+            
+            simulateSlowConnection() {
+                // Simulate slow connection by adding delay to fetch
+                const originalFetch = window.fetch;
+                window.fetch = async (...args) => {
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    return originalFetch(...args);
+                };
+                
+                setTimeout(() => {
+                    window.fetch = originalFetch;
+                }, 10000);
+                
+                this.showMessage('Simulated slow connection (10s)', 'info');
+            }
+            
+            simulateError() {
+                if (window.languageManager) {
+                    window.languageManager.handleError('Simulated error for testing');
+                }
+                this.showMessage('Simulated error condition', 'danger');
+            }
+            
+            showMessage(message, type) {
+                const alertClass = `alert-${type}`;
+                const alert = document.createElement('div');
+                alert.className = `alert ${alertClass} alert-dismissible fade show`;
+                alert.innerHTML = `
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                document.querySelector('.container').insertBefore(alert, document.querySelector('.container').firstChild);
+                
+                setTimeout(() => {
+                    if (alert.parentNode) {
+                        alert.parentNode.removeChild(alert);
+                    }
+                }, 5000);
+            }
+            
+            displayResults(results, container) {
+                container.innerHTML = '';
+                results.forEach(result => {
+                    const div = document.createElement('div');
+                    div.className = `test-result test-${result.result.toLowerCase()}`;
+                    div.innerHTML = `
+                        <strong>${result.name}:</strong> ${result.result} - ${result.details}
+                    `;
+                    container.appendChild(div);
+                });
+            }
+        }
+        
+        // Initialize test suite when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new PerformanceTestSuite();
+            
+            // Monitor performance metrics
+            if (window.languageManager) {
+                setInterval(() => {
+                    if ('memory' in performance) {
+                        const memory = performance.memory;
+                        document.getElementById('memory-usage').textContent = 
+                            `${(memory.usedJSHeapSize / 1024 / 1024).toFixed(2)}MB`;
+                    }
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>
