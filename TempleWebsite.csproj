@@ -1,11 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>e1c2587b-fcc3-4576-aaad-6f607dd65621</UserSecretsId>
   </PropertyGroup>
 
-
+  <ItemGroup>
+    <Compile Remove="TempleWebsite.Tests/**" />
+    <Content Remove="TempleWebsite.Tests/**" />
+    <EmbeddedResource Remove="TempleWebsite.Tests/**" />
+    <None Remove="TempleWebsite.Tests/**" />
+  </ItemGroup>
 
 </Project>
