@@ -77,3 +77,14 @@ yarn-error.log*
 # Test validation scripts (standalone versions)
 test-responsive-validation.js
 validate-cross-browser.js
+appsettings.Development.json
+
+# Kiro IDE workspace files
+.kiro/
+
+# Test reports and manual test files
+cross-browser-test-report.md
+responsive-design-test-report.md
+keyboard-navigation-test.html
+manual-cross-browser-checklist.md
+SETUP_INSTRUCTIONS.md
