@@ -11,23 +11,47 @@ namespace TempleWebsite.Controllers
         private readonly IEmailService _emailService;
         private readonly IMemoryCache _cache;
         private readonly TempleSettings _templeSettings;
+        private readonly IEventPersistenceService _persistence;
 
-        public HomeController(IEmailService emailService, IMemoryCache cache, IOptions<TempleSettings> templeOptions)
+        public HomeController(IEmailService emailService, IMemoryCache cache, IOptions<TempleSettings> templeOptions, IEventPersistenceService persistence)
         {
             _emailService = emailService;
             _cache = cache;
             _templeSettings = templeOptions.Value;
+            _persistence = persistence;
         }
 
         public IActionResult Index()
         {
-            var featuredEvents = new List<Event>
+            List<Event> featuredEvents;
+
+            if (_cache.TryGetValue(EventsConstants.EventsCacheKey, out List<Event>? cachedEvents) && cachedEvents != null)
             {
-                new Event { Id = 1, Title = "Maha Shivaratri", Description = "Great night of Lord Shiva with special abhishekam", EventDate = DateTime.Now.AddDays(15), IsFeatured = true, EventTime = "6:00 PM - 6:00 AM" },
-                new Event { Id = 2, Title = "Sri Rama Navami", Description = "Birth celebration of Lord Rama with Sita, Lakshmana", EventDate = DateTime.Now.AddDays(45), IsFeatured = true, EventTime = "6:00 AM - 9:00 PM" },
-                new Event { Id = 3, Title = "Krishna Janmashtami", Description = "Birth celebration of Lord Krishna with Radha", EventDate = DateTime.Now.AddDays(75), IsFeatured = true, EventTime = "11:30 PM - 12:30 AM" }
-            };
-            
+                featuredEvents = cachedEvents
+                    .Where(e => e.EventDate >= DateTime.Today)
+                    .OrderBy(e => e.EventDate)
+                    .Take(3)
+                    .ToList();
+            }
+            else
+            {
+                var persisted = _persistence.Load();
+                if (persisted != null)
+                {
+                    _cache.Set(EventsConstants.EventsCacheKey, persisted,
+                        new MemoryCacheEntryOptions { SlidingExpiration = TimeSpan.FromHours(24) });
+                    featuredEvents = persisted
+                        .Where(e => e.EventDate >= DateTime.Today)
+                        .OrderBy(e => e.EventDate)
+                        .Take(3)
+                        .ToList();
+                }
+                else
+                {
+                    featuredEvents = new List<Event>();
+                }
+            }
+
             return View(featuredEvents);
         }
 

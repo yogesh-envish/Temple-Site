@@ -72,32 +72,47 @@
                     <h2 class="section-title">Upcoming Events</h2>
                 </div>
             </div>
-            <div class="row">
-                @foreach (var eventItem in Model)
-                {
-                    <div class="col-md-4 mb-4">
-                        <div class="event-card">
-                            <div class="event-date">
-                                <span class="day">@eventItem.EventDate.Day</span>
-                                <span class="month">@eventItem.EventDate.ToString("MMM")</span>
+            <div class="col-lg-8 mx-auto">
+                <ul class="list-group list-group-flush">
+                    @foreach (var eventItem in Model)
+                    {
+                        <li class="list-group-item d-flex align-items-start py-3 px-0 border-bottom">
+                            <div class="event-date-badge me-3 text-center flex-shrink-0">
+                                <div class="fw-bold fs-4 lh-1">@eventItem.EventDate.Day</div>
+                                <div class="text-uppercase small">@eventItem.EventDate.ToString("MMM")</div>
+                                <div class="small text-muted">@eventItem.EventDate.Year</div>
                             </div>
-                            <div class="event-content">
-                                <h5>@eventItem.Title</h5>
-                                <p>@eventItem.Description</p>
-                                <small class="text-muted">
-                                    <i class="fas fa-clock"></i> @eventItem.EventTime
-                                </small>
+                            <div class="flex-grow-1">
+                                <div class="fw-semibold">@eventItem.Title</div>
+                                <div class="text-muted small">@eventItem.Description</div>
+                                <div class="small mt-1">
+                                    @if (!string.IsNullOrEmpty(eventItem.EventTime))
+                                    {
+                                        <span class="me-2"><i class="fas fa-clock"></i> @eventItem.EventTime</span>
+                                    }
+                                    @if (!string.IsNullOrEmpty(eventItem.Day))
+                                    {
+                                        <span class="badge bg-secondary">@eventItem.Day</span>
+                                    }
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                }
+                        </li>
+                    }
+                </ul>
             </div>
-            <div class="text-center">
+            <div class="text-center mt-4">
                 <a asp-controller="Events" asp-action="Index" class="btn btn-temple">View All Events</a>
             </div>
         </div>
     </section>
 }
+
+<style>
+.event-date-badge {
+    min-width: 50px;
+    color: var(--temple-primary, #e67e22);
+}
+</style>
 
 <!-- Services Section -->
 <section class="services-section py-5">

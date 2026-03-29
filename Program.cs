@@ -1,5 +1,9 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using TempleWebsite.Models;
 using TempleWebsite.Services;
+using OfficeOpenXml;
+
+ExcelPackage.License.SetNonCommercialPersonal("TempleWebsite");
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +13,16 @@ builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpS
 builder.Services.Configure<TempleSettings>(builder.Configuration.GetSection("TempleSettings"));
 builder.Services.AddMemoryCache();
 builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddTransient<IExcelParserService, ExcelParserService>();
+builder.Services.AddTransient<IEventValidatorService, EventValidatorService>();
+builder.Services.AddSingleton<IEventPersistenceService, EventPersistenceService>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/AccessDenied";
+    });
 
 var app = builder.Build();
 
@@ -24,6 +38,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
