@@ -1,74 +1,102 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using System.Text.Json;
 using TempleWebsite.Models;
+using TempleWebsite.Services;
 
 namespace TempleWebsite.Controllers
 {
     public class EventsController : Controller
     {
+        private readonly IMemoryCache _cache;
+        private readonly IExcelParserService _excelParserService;
+        private readonly IEventValidatorService _eventValidatorService;
+        private readonly IEventPersistenceService _persistence;
+
+        public EventsController(
+            IMemoryCache cache,
+            IExcelParserService excelParserService,
+            IEventValidatorService eventValidatorService,
+            IEventPersistenceService persistence)
+        {
+            _cache = cache;
+            _excelParserService = excelParserService;
+            _eventValidatorService = eventValidatorService;
+            _persistence = persistence;
+        }
+
         public IActionResult Index()
         {
-            var events = new List<Event>
+            if (_cache.TryGetValue(EventsConstants.EventsCacheKey, out List<Event>? cachedEvents) && cachedEvents != null)
+                return View(cachedEvents);
+
+            // Cache miss — try loading from disk (survives restarts)
+            var persisted = _persistence.Load();
+            if (persisted != null)
             {
-                // Ranganathar/Vishnu Events
-                new Event { Id = 1, Title = "Vaikunta Ekadashi", Description = "Sacred day for Lord Ranganathar with special darshan", EventDate = DateTime.Now.AddDays(10), EventTime = "4:00 AM - 12:00 PM", IsFeatured = true },
-                new Event { Id = 2, Title = "Ranganathar Brahmotsavam", Description = "Annual grand festival for Lord Ranganathar", EventDate = DateTime.Now.AddDays(25), EventTime = "6:00 AM - 10:00 PM", IsFeatured = true },
-                new Event { Id = 3, Title = "Narasimha Jayanti", Description = "Birth celebration of Lord Narasimha", EventDate = DateTime.Now.AddDays(40), EventTime = "6:00 AM - 9:00 PM", IsFeatured = true },
-                
-                // Shiva Events
-                new Event { Id = 4, Title = "Maha Shivaratri", Description = "Great night of Lord Shiva with special abhishekam", EventDate = DateTime.Now.AddDays(15), EventTime = "6:00 PM - 6:00 AM", IsFeatured = true },
-                new Event { Id = 5, Title = "Pradosham", Description = "Bi-monthly Shiva worship", EventDate = DateTime.Now.AddDays(8), EventTime = "6:00 PM - 8:00 PM", IsFeatured = false },
-                
-                // Rama Events
-                new Event { Id = 6, Title = "Sri Rama Navami", Description = "Birth celebration of Lord Rama with Sita, Lakshmana", EventDate = DateTime.Now.AddDays(45), EventTime = "6:00 AM - 9:00 PM", IsFeatured = true },
-                
-                // Hanuman Events
-                new Event { Id = 7, Title = "Hanuman Jayanti", Description = "Birth celebration of Lord Hanuman", EventDate = DateTime.Now.AddDays(50), EventTime = "6:00 AM - 9:00 PM", IsFeatured = true },
-                new Event { Id = 8, Title = "Hanuman Chalisa Parayanam", Description = "Special Hanuman prayers every Tuesday", EventDate = DateTime.Now.AddDays(5), EventTime = "7:00 PM - 8:00 PM", IsFeatured = false },
-                
-                // Krishna Events
-                new Event { Id = 9, Title = "Krishna Janmashtami", Description = "Birth celebration of Lord Krishna with Radha", EventDate = DateTime.Now.AddDays(75), EventTime = "11:30 PM - 12:30 AM", IsFeatured = true },
-                new Event { Id = 10, Title = "Radha Ashtami", Description = "Birth celebration of Goddess Radha", EventDate = DateTime.Now.AddDays(80), EventTime = "6:00 AM - 9:00 PM", IsFeatured = false },
-                
-                // Varaha Events
-                new Event { Id = 11, Title = "Varaha Jayanti", Description = "Celebration of Lord Varaha with Lakshmi", EventDate = DateTime.Now.AddDays(70), EventTime = "6:00 AM - 9:00 PM", IsFeatured = false },
-                
-                // Navagraha Events
-                new Event { Id = 12, Title = "Navagraha Homam", Description = "Special prayers for nine planets including Rahu-Ketu", EventDate = DateTime.Now.AddDays(20), EventTime = "10:00 AM - 12:00 PM", IsFeatured = false },
-                
-                // Shani Events
-                new Event { Id = 13, Title = "Shani Amavasya", Description = "Special prayers for Lord Shaneeshwara", EventDate = DateTime.Now.AddDays(30), EventTime = "6:00 AM - 8:00 PM", IsFeatured = false },
-                
-                // Ganesha Events
-                new Event { Id = 14, Title = "Vinayaka Chaturthi", Description = "Monthly celebration of Lord Ganesha", EventDate = DateTime.Now.AddDays(12), EventTime = "6:00 AM - 9:00 PM", IsFeatured = false },
-                new Event { Id = 15, Title = "Ganesh Chaturthi", Description = "Grand celebration of Lord Vinayagar", EventDate = DateTime.Now.AddDays(85), EventTime = "6:00 AM - 10:00 PM", IsFeatured = true },
-                
-                // Devi Events
-                new Event { Id = 16, Title = "Navaratri", Description = "Nine nights celebrating Mahasakthi and Varahi Devi", EventDate = DateTime.Now.AddDays(90), EventTime = "6:00 AM - 10:00 PM", IsFeatured = true },
-                new Event { Id = 17, Title = "Devi Navaratri", Description = "Spring festival for Divine Mother", EventDate = DateTime.Now.AddDays(35), EventTime = "6:00 AM - 9:00 PM", IsFeatured = false },
-                
-                // Ayyappa Events
-                new Event { Id = 18, Title = "Makaravilakku", Description = "Special celebration for Lord Ayyappa", EventDate = DateTime.Now.AddDays(60), EventTime = "6:00 PM - 10:00 PM", IsFeatured = true },
-                
-                // Murugan Events
-                new Event { Id = 19, Title = "Skanda Sashti", Description = "Six-day festival for Lord Murugan with Valli Devasena", EventDate = DateTime.Now.AddDays(95), EventTime = "6:00 AM - 9:00 PM", IsFeatured = true },
-                new Event { Id = 20, Title = "Thai Pusam", Description = "Grand festival for Lord Murugan", EventDate = DateTime.Now.AddDays(55), EventTime = "4:00 AM - 10:00 PM", IsFeatured = true },
-                
-                // Dakshinamurthy Events
-                new Event { Id = 21, Title = "Guru Purnima", Description = "Celebration of Lord Dakshinamurthy as supreme teacher", EventDate = DateTime.Now.AddDays(65), EventTime = "6:00 AM - 9:00 PM", IsFeatured = false },
-                
-                // Bhairava Events
-                new Event { Id = 22, Title = "Bhairava Ashtami", Description = "Monthly celebration of Bhairava with Bhairavi", EventDate = DateTime.Now.AddDays(18), EventTime = "11:00 PM - 1:00 AM", IsFeatured = false },
-                
-                // Adisesha Events
-                new Event { Id = 23, Title = "Ananta Chaturdashi", Description = "Celebration of Adisesha, the cosmic serpent", EventDate = DateTime.Now.AddDays(88), EventTime = "6:00 AM - 9:00 PM", IsFeatured = false },
-                
-                // Karuppu Swamy Events
-                new Event { Id = 24, Title = "Karuppu Swamy Thiruvizha", Description = "Annual festival for village deity Karuppu Swamy", EventDate = DateTime.Now.AddDays(42), EventTime = "10:00 PM - 2:00 AM", IsFeatured = false }
+                _cache.Set(EventsConstants.EventsCacheKey, persisted,
+                    new MemoryCacheEntryOptions { SlidingExpiration = TimeSpan.FromHours(24) });
+                return View(persisted);
+            }
+
+            return View(new List<Event>());
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public IActionResult Upload(IFormFile? file)
+        {
+            if (file == null || file.Length == 0)
+            {
+                TempData["ErrorMessage"] = "Please select a file to upload.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+            if (extension != ".xls" && extension != ".xlsx")
+            {
+                TempData["ErrorMessage"] = "Only .xls and .xlsx files are supported.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            if (file.Length > 10 * 1024 * 1024)
+            {
+                TempData["ErrorMessage"] = "File size must not exceed 10 MB.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            IReadOnlyList<Models.RawEventRow> rows;
+            try
+            {
+                rows = _excelParserService.Parse(file.OpenReadStream());
+            }
+            catch (ExcelParseException)
+            {
+                TempData["ErrorMessage"] = "The uploaded file could not be read. Please ensure it is a valid Excel file.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var result = _eventValidatorService.Validate(rows);
+
+            if (!result.IsSuccess)
+            {
+                TempData["ErrorMessages"] = JsonSerializer.Serialize(
+                    result.Errors.Select(e => e.Message).ToList());
+                return RedirectToAction(nameof(Index));
+            }
+
+            var sortedEvents = result.ValidEvents.OrderBy(e => e.EventDate).ToList();
+
+            var cacheOptions = new MemoryCacheEntryOptions
+            {
+                SlidingExpiration = TimeSpan.FromHours(24)
             };
-            
-            // Sort by date and return all events (they're all future now)
-            var sortedEvents = events.OrderBy(e => e.EventDate).ToList();
-            return View(sortedEvents);
+            _cache.Set(EventsConstants.EventsCacheKey, sortedEvents, cacheOptions);
+            _persistence.Save(sortedEvents); // persist to disk so events survive restarts
+
+            TempData["SuccessMessage"] = $"{result.ValidEvents.Count} event(s) loaded successfully.";
+            return RedirectToAction(nameof(Index));
         }
     }
 }

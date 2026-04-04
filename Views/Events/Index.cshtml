@@ -17,42 +17,109 @@
 
 <section class="events-listing py-5">
     <div class="container">
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        @if (TempData["ErrorMessages"] != null)
+        {
+            var errors = System.Text.Json.JsonSerializer.Deserialize<List<string>>(TempData["ErrorMessages"]!.ToString()!);
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Upload errors:</strong>
+                <ul class="mb-0 mt-1">
+                    @foreach (var err in errors!)
+                    {
+                        <li>@err</li>
+                    }
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="mb-3">
+                <button type="button" class="btn btn-outline-secondary" onclick="toggleUploadPanel()">Edit Events</button>
+            </div>
+
+            <div id="uploadPanel" style="display:none;" class="card mb-4 p-3">
+                <form method="post" asp-action="Upload" asp-controller="Events" enctype="multipart/form-data" class="mb-3">
+                    <div class="mb-2">
+                        <input type="file" name="file" accept=".xls,.xlsx" class="form-control" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload Events</button>
+                </form>
+
+                <form method="post" asp-action="Logout" asp-controller="Account">
+                    <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
+                </form>
+            </div>
+
+            <script>
+                function toggleUploadPanel() {
+                    var panel = document.getElementById('uploadPanel');
+                    panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+                }
+            </script>
+        }
+
         <div class="row">
             <div class="col-12 text-center mb-4">
                 <h2 class="section-title">Upcoming Events & Festivals</h2>
                 <p class="lead">Join us in celebrating divine festivals and spiritual events throughout the year</p>
             </div>
         </div>
-        
+
         @if (Model.Any())
         {
-            <div class="events-grid">
+            <ul class="list-group list-group-flush">
                 @foreach (var eventItem in Model)
                 {
-                    <div class="event-grid-item">
-                        <div class="event-date-circle">
-                            <span class="date-day">@eventItem.EventDate.Day</span>
-                            <span class="date-month">@eventItem.EventDate.ToString("MMM")</span>
+                    <li class="list-group-item d-flex align-items-start py-3 px-0 border-bottom">
+                        <div class="event-date-badge me-3 text-center flex-shrink-0">
+                            <div class="fw-bold fs-4 lh-1">@eventItem.EventDate.Day</div>
+                            <div class="text-uppercase small">@eventItem.EventDate.ToString("MMM")</div>
+                            <div class="small text-muted">@eventItem.EventDate.Year</div>
                         </div>
-                        <div class="event-info">
-                            <h5 class="event-title">@eventItem.Title</h5>
-                            <p class="event-desc">@eventItem.Description</p>
-                            <div class="event-timing">
-                                <i class="fas fa-clock"></i> @eventItem.EventTime
+                        <div class="flex-grow-1">
+                            <div class="fw-semibold fs-6">@eventItem.Title</div>
+                            <div class="text-muted small">@eventItem.Description</div>
+                            <div class="small mt-1">
+                                @if (!string.IsNullOrEmpty(eventItem.EventTime))
+                                {
+                                    <span class="me-2"><i class="fas fa-clock"></i> @eventItem.EventTime</span>
+                                }
+                                @if (!string.IsNullOrEmpty(eventItem.Day))
+                                {
+                                    <span class="badge bg-secondary">@eventItem.Day</span>
+                                }
+                                @if (eventItem.IsFeatured)
+                                {
+                                    <span class="badge bg-warning text-dark ms-1">Featured</span>
+                                }
                             </div>
-                            @if (eventItem.IsFeatured)
-                            {
-                                <span class="featured-tag">Featured</span>
-                            }
                         </div>
-                    </div>
+                    </li>
                 }
-            </div>
+            </ul>
         }
         else
         {
-            <div class="text-center">
-                <p class="lead">No upcoming events at this time. Please check back later.</p>
+            <div class="text-center py-5">
+                <p class="lead text-muted">No upcoming events at this time. Please check back later.</p>
             </div>
         }
     </div>
@@ -135,6 +202,20 @@
     font-size: 0.9rem;
     font-weight: 500;
     margin-bottom: 0.5rem;
+}
+
+.event-date-badge {
+    min-width: 50px;
+    color: var(--temple-primary, #e67e22);
+}
+
+.day-badge {
+    background: var(--temple-primary, #e67e22);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
 }
 
 .featured-tag {

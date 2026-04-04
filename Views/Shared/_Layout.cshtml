@@ -1,9 +1,11 @@
+@inject Microsoft.Extensions.Options.IOptions<TempleWebsite.Models.TempleSettings> TempleOptions
+@{ var temple = TempleOptions.Value; }
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Sri Kaliyuga Ranganathar Temple</title>
+    <title>@ViewData["Title"] - @temple.TempleName</title>
     <link rel="icon" type="image/x-icon" href="~/images/final_logo.jpg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -16,7 +18,7 @@
             <div class="container">
                 <a class="navbar-brand temple-logo" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/images/final_logo.jpg" alt="Temple Logo" class="temple-logo-img">
-                    <span>Sri Kaliyuga Ranganathar Temple</span>
+                    <span>@temple.TempleName</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
@@ -38,6 +40,20 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Contact">Contact</a>
                         </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <form method="post" asp-controller="Account" asp-action="Logout" class="d-inline">
+                                    <button type="submit" class="nav-link btn btn-link">Logout</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Account" asp-action="Login">Admin Login</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -59,7 +75,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <h5>Sri Kaliyuga Ranganathar Temple</h5>
+                    <h5>@temple.TempleName</h5>
                     <p>Dedicated to the service of Lord Venkateswara and the spiritual upliftment of devotees.</p>
                     <div class="social-links">
                         <a href="https://youtube.com/@@kalkiavatharasthalam9015?si=yYcyP2gf7F468vMC" target="_blank"><i class="fab fa-youtube"></i></a>
@@ -75,15 +91,15 @@
                 </div>
                 <div class="col-md-4">
                     <h5>Contact Info</h5>
-                    <p><i class="fas fa-map-marker-alt"></i> Karuppasamy kovil Thottam, Nagalur, Tamil Nadu 638502</p>
-                    <p><i class="fas fa-phone"></i> +91 9842760553</p>
-                    <p><i class="fas fa-envelope"></i> kalkiavatharasthalam@gmail.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> @temple.Address</p>
+                    <p><i class="fas fa-phone"></i> @temple.Phone</p>
+                    <p><i class="fas fa-envelope"></i> @temple.Email</p>
                 </div>
             </div>
             <hr class="footer-divider">
             <div class="row">
                 <div class="col-12 text-center">
-                    <p>&copy; @DateTime.Now.Year Sri Kaliyuga Ranganathar Temple Trust. All rights reserved.</p>
+                    <p>&copy; @DateTime.Now.Year @temple.TempleName Trust. All rights reserved.</p>
                 </div>
             </div>
         </div>

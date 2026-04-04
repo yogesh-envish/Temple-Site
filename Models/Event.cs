@@ -22,6 +22,9 @@ namespace TempleWebsite.Models
         [Display(Name = "Event Time")]
         public string? EventTime { get; set; }
         
+        [Display(Name = "Day")]
+        public string? Day { get; set; }
+        
         [Display(Name = "Image URL")]
         public string? ImageUrl { get; set; }
         

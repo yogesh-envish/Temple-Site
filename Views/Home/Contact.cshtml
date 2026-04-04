@@ -1,3 +1,6 @@
+@model TempleWebsite.Models.ContactFormModel
+@inject Microsoft.Extensions.Options.IOptions<TempleWebsite.Models.TempleSettings> TempleOptions
+@{ var temple = TempleOptions.Value; }
 @{
     ViewData["Title"] = "Contact Us";
 }
@@ -30,9 +33,7 @@
                         <i class="fas fa-map-marker-alt"></i>
                     </div>
                     <h4>Visit Us</h4>
-                    <p>Sri Kaliyuga Ranganathar Temple<br>
-                    Karuppasamy kovil Thottam<br>
-                    Nagalur, Tamil Nadu 638502</p>
+                    <p>@temple.TempleName<br>@temple.Address</p>
                     <a href="https://maps.google.com" target="_blank" class="btn btn-outline-temple btn-sm">
                         <i class="fas fa-directions"></i> Get Directions
                     </a>
@@ -46,9 +47,9 @@
                     </div>
                     <h4>Call Us</h4>
                     <p>Temple Office:<br>
-                    <strong>+91 9842760553</strong><br><br>
+                    <strong>@temple.Phone</strong><br><br>
                     General Inquiries:<br>
-                    <strong>+91 9842760553</strong></p>
+                    <strong>@temple.Phone</strong></p>
                     <small class="text-muted">Available: 6:00 AM - 9:00 PM</small>
                 </div>
             </div>
@@ -60,9 +61,9 @@
                     </div>
                     <h4>Email Us</h4>
                     <p>General Inquiries:<br>
-                    <strong>kalkiavatharasthalam@gmail.com</strong><br><br>
+                    <strong>@temple.Email</strong><br><br>
                     Temple Information:<br>
-                    <strong>kalkiavatharasthalam@gmail.com</strong></p>
+                    <strong>@temple.Email</strong></p>
                     <small class="text-muted">We respond within 24 hours</small>
                 </div>
             </div>
@@ -83,52 +84,30 @@
                     <div class="timing-row">
                         <div class="timing-service">
                             <i class="fas fa-sun"></i>
-                            <span>Suprabhatam</span>
+                            <span>Nitya Dharshan (Nithya Pooja)</span>
                         </div>
-                        <div class="timing-hours">5:30 AM - 6:30 AM</div>
+                        <div class="timing-hours">7:00 AM - 9:00 AM</div>
                     </div>
                     <div class="timing-row">
                         <div class="timing-service">
                             <i class="fas fa-pray"></i>
-                            <span>Morning Darshan</span>
+                            <span>Saturday &amp; Amavashya Dharshan</span>
                         </div>
-                        <div class="timing-hours">7:00 AM - 12:00 PM</div>
-                    </div>
-                    <div class="timing-row">
-                        <div class="timing-service">
-                            <i class="fas fa-moon"></i>
-                            <span>Evening Darshan</span>
-                        </div>
-                        <div class="timing-hours">4:00 PM - 8:00 PM</div>
+                        <div class="timing-hours">12:00 PM - 4:00 PM</div>
                     </div>
                     <div class="timing-row">
                         <div class="timing-service">
                             <i class="fas fa-star"></i>
-                            <span>Evening Prayers</span>
+                            <span>Special Poojas (with Annadhana)</span>
                         </div>
-                        <div class="timing-hours">8:30 PM - 9:00 PM</div>
+                        <div class="timing-hours">6:00 PM - 9:00 PM</div>
                     </div>
-                </div>
-                
-                <div class="special-timings mt-4">
-                    <h5>Special Timings</h5>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="special-timing-item">
-                                <strong>Fridays:</strong> Extended evening darshan until 9:00 PM
-                            </div>
-                            <div class="special-timing-item">
-                                <strong>Saturdays:</strong> Special abhishekam at 6:00 AM
-                            </div>
+                    <div class="timing-row">
+                        <div class="timing-service">
+                            <i class="fas fa-moon"></i>
+                            <span>Abhisega Dharshana</span>
                         </div>
-                        <div class="col-md-6">
-                            <div class="special-timing-item">
-                                <strong>Sundays:</strong> Vishnu Sahasranamam at 10:00 AM
-                            </div>
-                            <div class="special-timing-item">
-                                <strong>Festivals:</strong> Extended hours as per schedule
-                            </div>
-                        </div>
+                        <div class="timing-hours">3 days before Saturday &amp; Amavashya</div>
                     </div>
                 </div>
             </div>
@@ -171,41 +150,58 @@
                         <p class="text-muted">We'd love to hear from you</p>
                     </div>
                     
-                    <form class="contact-form">
+                    <form class="contact-form" method="post" asp-action="Contact" asp-controller="Home" asp-antiforgery="true">
+                        @if (ViewBag.SuccessMessage != null)
+                        {
+                            <div class="alert alert-success" role="alert">@ViewBag.SuccessMessage</div>
+                        }
+                        @if (ViewBag.ErrorMessage != null)
+                        {
+                            <div class="alert alert-danger" role="alert">@ViewBag.ErrorMessage</div>
+                        }
+
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Full Name *</label>
-                                <input type="text" class="form-control" placeholder="Enter your full name" required>
+                                <label asp-for="FullName" class="form-label">Full Name *</label>
+                                <input asp-for="FullName" class="form-control" placeholder="Enter your full name">
+                                <span asp-validation-for="FullName" class="text-danger"></span>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Email Address *</label>
-                                <input type="email" class="form-control" placeholder="Enter your email" required>
+                                <label asp-for="Email" class="form-label">Email Address *</label>
+                                <input asp-for="Email" class="form-control" placeholder="Enter your email">
+                                <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                         </div>
-                        
+
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Phone Number</label>
-                                <input type="tel" class="form-control" placeholder="Enter your phone number">
+                                <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+                                <input asp-for="PhoneNumber" class="form-control" placeholder="Enter your phone number">
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Subject *</label>
-                                <select class="form-select" required>
+                                <label asp-for="Subject" class="form-label">Subject *</label>
+                                <select asp-for="Subject" class="form-select">
                                     <option value="">Select subject...</option>
-                                    <option value="general">General Inquiry</option>
-                                    <option value="temple">Temple Information</option>
-                                    <option value="donation">Donation</option>
-                                    <option value="event">Event Information</option>
-                                    <option value="feedback">Feedback</option>
+                                    <option value="General Inquiry">General Inquiry</option>
+                                    <option value="Temple Information">Temple Information</option>
+                                    <option value="Donation">Donation</option>
+                                    <option value="Event Information">Event Information</option>
+                                    <option value="Feedback">Feedback</option>
                                 </select>
+                                <span asp-validation-for="Subject" class="text-danger"></span>
                             </div>
                         </div>
-                        
+
                         <div class="mb-3">
-                            <label class="form-label">Message *</label>
-                            <textarea class="form-control" rows="5" placeholder="Enter your message..." required></textarea>
+                            <label asp-for="Message" class="form-label">Message *</label>
+                            <textarea asp-for="Message" class="form-control" rows="5" placeholder="Enter your message..."></textarea>
+                            <span asp-validation-for="Message" class="text-danger"></span>
                         </div>
-                        
+
+                        <!-- Honeypot field - hidden from human visitors -->
+                        <input type="text" name="Trap" style="display:none" tabindex="-1" autocomplete="off">
+
                         <div class="text-center">
                             <button type="submit" class="btn btn-temple btn-lg">
                                 <i class="fas fa-paper-plane me-2"></i>Send Message
@@ -239,7 +235,7 @@
                 </a>
             </div>
             <div class="col-md-3 col-sm-6 mb-3">
-                <a href="tel:+15551234567" class="quick-link-card">
+                <a href="tel:@temple.Phone" class="quick-link-card">
                     <i class="fas fa-phone"></i>
                     <span>Call Temple</span>
                 </a>
