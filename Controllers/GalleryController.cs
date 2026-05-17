@@ -64,7 +64,7 @@ namespace TempleWebsite.Controllers
             // Validate: file > 5 MB
             if (imageFile.Length > GalleryConstants.MaxFileSizeBytes)
             {
-                TempData["ErrorMessage"] = "Image file must not exceed 5 MB.";
+                TempData["ErrorMessage"] = "Image file must not exceed 10 MB.";
                 return RedirectToAction(nameof(Index));
             }
 
