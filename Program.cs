@@ -9,6 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Limits.MaxRequestBodySize = 10 * 1024 * 1024; // 10 MB
+});
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 builder.Services.Configure<TempleSettings>(builder.Configuration.GetSection("TempleSettings"));
 builder.Services.AddMemoryCache();
@@ -16,6 +20,7 @@ builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddTransient<IExcelParserService, ExcelParserService>();
 builder.Services.AddTransient<IEventValidatorService, EventValidatorService>();
 builder.Services.AddSingleton<IEventPersistenceService, EventPersistenceService>();
+builder.Services.AddSingleton<IGalleryService, GalleryService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

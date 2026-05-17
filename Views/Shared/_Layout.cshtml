@@ -34,6 +34,7 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Events" asp-action="Index">Events</a>
                         </li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Gallery" asp-action="Index">Gallery</a></li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Donation" asp-action="Index">Donate</a>
                         </li>
@@ -86,6 +87,7 @@
                     <ul class="footer-links">
                         <li><a asp-controller="Home" asp-action="About">About Us</a></li>
                         <li><a asp-controller="Events" asp-action="Index">Events</a></li>
+                        <li><a asp-controller="Gallery" asp-action="Index">Gallery</a></li>
                         <li><a asp-controller="Donation" asp-action="Index">Donate</a></li>
                     </ul>
                 </div>
@@ -99,7 +101,7 @@
             <hr class="footer-divider">
             <div class="row">
                 <div class="col-12 text-center">
-                    <p>&copy; @DateTime.Now.Year @temple.TempleName Trust. All rights reserved.</p>
+                    <p>&copy; @DateTime.Now.Year @temple.TempleName. All rights reserved.</p>
                 </div>
             </div>
         </div>

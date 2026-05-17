@@ -1030,3 +1030,135 @@ h1, h2, h3, h4, h5, h6 {
         line-height: 1.75;
     }
 }
+
+/* =============================================
+   MOBILE RESPONSIVENESS FIXES
+   ============================================= */
+
+/* Navbar - fix logo text overflow on small screens */
+@media (max-width: 576px) {
+    .temple-logo span {
+        font-size: 0.95rem;
+    }
+    .temple-logo-img {
+        height: 30px;
+    }
+    .temple-nav {
+        padding: 0.5rem 0;
+    }
+}
+
+/* Hero Section - fix large text on mobile */
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 1.6rem;
+        line-height: 1.3;
+    }
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+    .hero-section {
+        min-height: 60vh;
+    }
+    .hero-image {
+        display: none; /* hide idol image on very small screens */
+    }
+    .min-vh-75 {
+        min-height: 55vh;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 991px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    .hero-image {
+        margin-top: 2rem;
+        text-align: center;
+    }
+    .hero-image img {
+        max-height: 250px;
+        width: auto;
+    }
+}
+
+/* Page header - fix text overflow */
+@media (max-width: 576px) {
+    .page-header {
+        padding: 1.5rem 0 1rem;
+    }
+    .page-header h1 {
+        font-size: 1.4rem;
+    }
+}
+
+/* Timing cards - stack properly on mobile */
+@media (max-width: 576px) {
+    .timing-card {
+        min-height: auto;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+}
+
+/* Event list - better spacing on mobile */
+@media (max-width: 576px) {
+    .event-date-badge {
+        min-width: 40px;
+    }
+    .event-date-badge .fw-bold {
+        font-size: 1.2rem !important;
+    }
+    .list-group-item {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
+
+/* Footer - stack on mobile */
+@media (max-width: 768px) {
+    .temple-footer .col-md-4 {
+        margin-bottom: 1.5rem;
+    }
+    .temple-footer {
+        padding: 2rem 0 1rem;
+    }
+}
+
+/* Upload panel - full width on mobile */
+@media (max-width: 576px) {
+    #uploadPanel {
+        padding: 1rem !important;
+    }
+    #uploadPanel .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Service cards - equal height on mobile */
+@media (max-width: 768px) {
+    .service-card {
+        padding: 1.5rem;
+    }
+}
+
+/* Donation/Contact forms - padding fix */
+@media (max-width: 576px) {
+    .booking-form-container {
+        padding: 1rem;
+        border-radius: 8px;
+    }
+}
+
+/* General container padding on mobile */
+@media (max-width: 576px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    section.py-5 {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+}

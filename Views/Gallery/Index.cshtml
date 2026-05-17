@@ -1,0 +1,564 @@
+@model TempleWebsite.Models.GalleryIndexViewModel
+@using TempleWebsite.Models
+@{
+    ViewData["Title"] = "Photo Gallery";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1>Photo Gallery</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item active">Gallery</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<section class="gallery-section py-5">
+    <div class="container">
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="mb-3">
+                <button type="button" class="btn btn-outline-secondary" onclick="toggleUploadPanel()">Manage Gallery</button>
+            </div>
+
+            <div id="uploadPanel" style="display:none;" class="card mb-4 p-3">
+                <h5 class="mb-3">Upload New Image</h5>
+                <form method="post" asp-action="Upload" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label">Image File</label>
+                        <input type="file" name="imageFile" accept=".jpg,.jpeg,.png,.gif,.webp" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Title <span class="text-danger">*</span></label>
+                        <input type="text" name="title" class="form-control" required placeholder="Enter image title" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description <span class="text-muted">(optional)</span></label>
+                        <textarea name="description" class="form-control" rows="2" placeholder="Enter description (optional)"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Category <span class="text-danger">*</span></label>
+                        <select name="category" id="categorySelect" class="form-select" required onchange="toggleCustomCategory(this)">
+                            <option value="">-- Select Category --</option>
+                            @foreach (var cat in GalleryConstants.PredefinedCategories)
+                            {
+                                <option value="@cat">@cat</option>
+                            }
+                            <option value="__custom__">Other (type your own)</option>
+                        </select>
+                        <input type="text" id="customCategory" name="customCategoryInput" class="form-control mt-2"
+                               placeholder="Enter custom category" style="display:none;" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload Image</button>
+                </form>
+            </div>
+
+            <script>
+                function toggleUploadPanel() {
+                    var panel = document.getElementById('uploadPanel');
+                    panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+                }
+
+                function toggleCustomCategory(select) {
+                    var customInput = document.getElementById('customCategory');
+                    if (select.value === '__custom__') {
+                        customInput.style.display = 'block';
+                        customInput.required = true;
+                        select.removeAttribute('name'); // disable select from submitting
+                        customInput.name = 'category';
+                    } else {
+                        customInput.style.display = 'none';
+                        customInput.required = false;
+                        select.name = 'category';
+                        customInput.name = 'customCategoryInput';
+                    }
+                }
+            </script>
+        }
+
+        <!-- Category Filter Buttons -->
+        <div class="gallery-filter-bar mb-4">
+            <button class="btn gallery-filter-btn active" data-filter="All">All</button>
+            @foreach (var category in Model.Categories)
+            {
+                <button class="btn gallery-filter-btn" data-filter="@category">@category</button>
+            }
+        </div>
+
+        <!-- Masonry Grid -->
+        @if (Model.Images.Any())
+        {
+            <div class="gallery-masonry">
+                @foreach (var image in Model.Images)
+                {
+                    <div class="gallery-tile" data-category="@image.Category"
+                         data-title="@image.Title"
+                         data-description="@(image.Description ?? "")"
+                         data-src="/images/gallery/@image.FileName">
+                        <img src="/images/gallery/@image.FileName"
+                             alt="@image.Title"
+                             loading="lazy"
+                             class="gallery-tile-img" />
+                        <div class="gallery-caption">
+                            <span>@image.Title</span>
+                        </div>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <form method="post" asp-action="Delete" class="gallery-delete-form">
+                                <input type="hidden" name="id" value="@image.Id" />
+                                <input type="hidden" name="fileName" value="@image.FileName" />
+                                <button type="submit" class="gallery-delete-btn btn btn-danger btn-sm"
+                                        data-id="@image.Id"
+                                        data-filename="@image.FileName"
+                                        onclick="return confirm('Are you sure you want to delete this image?');"
+                                        title="Delete image">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        }
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-5">
+                <i class="fas fa-images fa-3x text-muted mb-3"></i>
+                <p class="lead text-muted">No images in the gallery yet. Check back soon!</p>
+            </div>
+        }
+
+    </div>
+</section>
+
+<!-- Lightbox Overlay -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox" style="display:none;">
+    <div class="lightbox-overlay" id="lightboxOverlay"></div>
+    <div class="lightbox-content">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close lightbox">&times;</button>
+        <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous image">&#10094;</button>
+        <button class="lightbox-next" id="lightboxNext" aria-label="Next image">&#10095;</button>
+        <div class="lightbox-body">
+            <img id="lightboxImg" src="" alt="" class="lightbox-image" />
+            <div class="lightbox-info">
+                <p id="lightboxTitle" class="lightbox-title"></p>
+                <p id="lightboxDesc" class="lightbox-desc"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* =============================================
+   GALLERY MASONRY LAYOUT
+   ============================================= */
+.gallery-masonry {
+    column-count: 3;
+    column-gap: 1rem;
+}
+
+@@media (max-width: 991px) {
+    .gallery-masonry {
+        column-count: 2;
+    }
+}
+
+@@media (max-width: 575px) {
+    .gallery-masonry {
+        column-count: 1;
+    }
+}
+
+/* =============================================
+   GALLERY TILE
+   ============================================= */
+.gallery-tile {
+    break-inside: avoid;
+    position: relative;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.gallery-tile:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+}
+
+.gallery-tile-img {
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+}
+
+/* =============================================
+   GALLERY CAPTION OVERLAY
+   ============================================= */
+.gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.65));
+    color: white;
+    padding: 1.5rem 0.75rem 0.6rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 0 0 8px 8px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-tile:hover .gallery-caption {
+    opacity: 1;
+}
+
+/* =============================================
+   GALLERY DELETE BUTTON (Admin)
+   ============================================= */
+.gallery-delete-form {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    margin: 0;
+}
+
+.gallery-delete-btn {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    border-radius: 4px;
+}
+
+.gallery-tile:hover .gallery-delete-btn {
+    opacity: 1;
+}
+
+/* =============================================
+   CATEGORY FILTER BUTTONS
+   ============================================= */
+.gallery-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.gallery-filter-btn {
+    border: 2px solid var(--temple-primary);
+    color: var(--temple-primary);
+    background: transparent;
+    border-radius: 25px;
+    padding: 0.4rem 1.1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.25s ease;
+}
+
+.gallery-filter-btn:hover {
+    background: var(--temple-primary);
+    color: white;
+}
+
+.gallery-filter-btn.active {
+    background: var(--temple-primary);
+    color: white;
+    box-shadow: 0 3px 10px rgba(255, 107, 53, 0.35);
+}
+
+/* =============================================
+   LIGHTBOX
+   ============================================= */
+#lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+}
+
+.lightbox-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+}
+
+.lightbox-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.lightbox-image {
+    max-width: 85vw;
+    max-height: 75vh;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    display: block;
+}
+
+.lightbox-info {
+    text-align: center;
+    margin-top: 0.75rem;
+    color: white;
+}
+
+.lightbox-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.lightbox-desc {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin: 0;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 2.5rem;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 2;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+.lightbox-close:hover {
+    opacity: 1;
+}
+
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    z-index: 2;
+    transition: background 0.2s ease;
+}
+
+.lightbox-prev {
+    left: 1rem;
+}
+
+.lightbox-next {
+    right: 1rem;
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.lightbox-prev:disabled,
+.lightbox-next:disabled {
+    opacity: 0.25;
+    cursor: default;
+}
+
+@@media (prefers-reduced-motion: reduce) {
+    .gallery-tile,
+    .gallery-caption,
+    .gallery-delete-btn,
+    .gallery-filter-btn,
+    .lightbox-close,
+    .lightbox-prev,
+    .lightbox-next {
+        transition: none;
+    }
+}
+
+@@media (max-width: 576px) {
+    .lightbox-prev { left: 0.25rem; }
+    .lightbox-next { right: 0.25rem; }
+    .lightbox-prev, .lightbox-next {
+        font-size: 1.3rem;
+        padding: 0.4rem 0.6rem;
+    }
+}
+</style>
+
+@section Scripts {
+<script>
+(function () {
+    'use strict';
+
+    /* =============================================
+       CATEGORY FILTER
+       ============================================= */
+    var filterButtons = document.querySelectorAll('.gallery-filter-btn');
+    var allTiles = document.querySelectorAll('.gallery-tile');
+
+    function applyFilter(selectedFilter) {
+        allTiles.forEach(function (tile) {
+            if (selectedFilter === 'All' || tile.dataset.category === selectedFilter) {
+                tile.style.display = '';
+            } else {
+                tile.style.display = 'none';
+            }
+        });
+
+        filterButtons.forEach(function (btn) {
+            btn.classList.toggle('active', btn.dataset.filter === selectedFilter);
+        });
+    }
+
+    filterButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            applyFilter(btn.dataset.filter);
+        });
+    });
+
+    // Initialise with "All" active
+    applyFilter('All');
+
+    /* =============================================
+       LIGHTBOX
+       ============================================= */
+    var lightbox      = document.getElementById('lightbox');
+    var lightboxImg   = document.getElementById('lightboxImg');
+    var lightboxTitle = document.getElementById('lightboxTitle');
+    var lightboxDesc  = document.getElementById('lightboxDesc');
+    var lightboxClose = document.getElementById('lightboxClose');
+    var lightboxPrev  = document.getElementById('lightboxPrev');
+    var lightboxNext  = document.getElementById('lightboxNext');
+    var lightboxOverlay = document.getElementById('lightboxOverlay');
+
+    var currentIndex  = 0;
+    var visibleTiles  = [];
+    var lastFocused   = null;
+
+    function getVisibleTiles() {
+        return Array.from(allTiles).filter(function (t) {
+            return t.style.display !== 'none';
+        });
+    }
+
+    function openLightbox(index) {
+        visibleTiles = getVisibleTiles();
+        if (!visibleTiles.length) return;
+
+        currentIndex = index;
+        showImage(currentIndex);
+        lightbox.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        lightboxClose.focus();
+    }
+
+    function closeLightbox() {
+        lightbox.style.display = 'none';
+        document.body.style.overflow = '';
+        if (lastFocused) {
+            lastFocused.focus();
+        }
+    }
+
+    function showImage(index) {
+        var tile = visibleTiles[index];
+        lightboxImg.src   = tile.dataset.src;
+        lightboxImg.alt   = tile.dataset.title;
+        lightboxTitle.textContent = tile.dataset.title;
+
+        var desc = tile.dataset.description;
+        lightboxDesc.textContent = desc || '';
+        lightboxDesc.style.display = desc ? '' : 'none';
+
+        lightboxPrev.disabled = (index === 0);
+        lightboxNext.disabled = (index === visibleTiles.length - 1);
+    }
+
+    function prevImage() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            showImage(currentIndex);
+        }
+    }
+
+    function nextImage() {
+        if (currentIndex < visibleTiles.length - 1) {
+            currentIndex++;
+            showImage(currentIndex);
+        }
+    }
+
+    // Attach click handlers to each tile (but not the delete button)
+    allTiles.forEach(function (tile, idx) {
+        tile.addEventListener('click', function (e) {
+            // Don't open lightbox when clicking the delete button/form
+            if (e.target.closest('.gallery-delete-form')) return;
+            lastFocused = tile;
+            // Recalculate index within currently visible tiles
+            visibleTiles = getVisibleTiles();
+            var visibleIdx = visibleTiles.indexOf(tile);
+            if (visibleIdx === -1) return;
+            openLightbox(visibleIdx);
+        });
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxOverlay.addEventListener('click', closeLightbox);
+    lightboxPrev.addEventListener('click', function (e) { e.stopPropagation(); prevImage(); });
+    lightboxNext.addEventListener('click', function (e) { e.stopPropagation(); nextImage(); });
+
+    document.addEventListener('keydown', function (e) {
+        if (lightbox.style.display === 'none') return;
+        if (e.key === 'Escape')      { closeLightbox(); }
+        if (e.key === 'ArrowLeft')   { prevImage(); }
+        if (e.key === 'ArrowRight')  { nextImage(); }
+    });
+
+})();
+</script>
+}
