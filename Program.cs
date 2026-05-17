@@ -16,6 +16,7 @@ builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddTransient<IExcelParserService, ExcelParserService>();
 builder.Services.AddTransient<IEventValidatorService, EventValidatorService>();
 builder.Services.AddSingleton<IEventPersistenceService, EventPersistenceService>();
+builder.Services.AddSingleton<IGalleryService, GalleryService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
