@@ -58,13 +58,16 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Category <span class="text-danger">*</span></label>
-                        <select name="category" class="form-select" required>
+                        <select name="category" id="categorySelect" class="form-select" required onchange="toggleCustomCategory(this)">
                             <option value="">-- Select Category --</option>
                             @foreach (var cat in GalleryConstants.PredefinedCategories)
                             {
                                 <option value="@cat">@cat</option>
                             }
+                            <option value="__custom__">Other (type your own)</option>
                         </select>
+                        <input type="text" id="customCategory" name="customCategoryInput" class="form-control mt-2"
+                               placeholder="Enter custom category" style="display:none;" />
                     </div>
                     <button type="submit" class="btn btn-primary">Upload Image</button>
                 </form>
@@ -74,6 +77,21 @@
                 function toggleUploadPanel() {
                     var panel = document.getElementById('uploadPanel');
                     panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+                }
+
+                function toggleCustomCategory(select) {
+                    var customInput = document.getElementById('customCategory');
+                    if (select.value === '__custom__') {
+                        customInput.style.display = 'block';
+                        customInput.required = true;
+                        select.removeAttribute('name'); // disable select from submitting
+                        customInput.name = 'category';
+                    } else {
+                        customInput.style.display = 'none';
+                        customInput.required = false;
+                        select.name = 'category';
+                        customInput.name = 'customCategoryInput';
+                    }
                 }
             </script>
         }
